@@ -46,7 +46,8 @@ class ProductController extends Controller
             'name' => ['required', 'string', 'min:3'],
             'price' => 'required',
             'category_id' => ['required', 'exists:categories,id'],
-            'desc' => ['required', 'max:1000']
+            'desc' => ['required', 'max:1000'],
+            'image' => ['required', 'image', 'mimes:png,jpg,jpeg,gif']
         ], [
             'name.required' => 'Product name is required',
             'name.string' => 'Please write a valid product name',
@@ -56,8 +57,10 @@ class ProductController extends Controller
             'price.required' => "Product price is required",
             'category.required' => 'Product category is required'
         ]);
+        $image = $request->file('image')->store('public');
         $product = new Product;
         $product->name = $request->name;
+        $product->image = $image;
         $product->price = $request->price;
         $product->category_id = $request->category_id;
         $product->desc = $request->desc;
@@ -67,14 +70,15 @@ class ProductController extends Controller
 
     public function show(string $id)
     {
-        return view("dashboard.products.show");
+        $product = Product::findOrFail($id);
+        return view("dashboard.products.show", compact('product'));
     }
 
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
         $categories = Category::all();
-        return view("products.edit", compact('categories', 'product'));
+        return view("dashboard.products.edit", compact('categories', 'product'));
     }
 
     public function update(Request $request, string $id)
@@ -83,7 +87,8 @@ class ProductController extends Controller
             'name' => ['required', 'string', 'min:3'],
             'price' => 'required',
             'category_id' => ['required', 'exists:categories,id'],
-            'desc' => ['required', 'max:1000']
+            'desc' => ['required', 'max:1000'],
+            'image' => $request->has('image') ? ['required', 'image', 'mimes:png,jpg,jpeg,gif'] : ''
         ], [
             'name.required' => 'Product name is required',
             'name.string' => 'Please write a valid product name',
@@ -99,11 +104,16 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->category_id = $request->category_id;
         $product->desc = $request->desc;
-        $product->save();
-        if (!$product->isDirty()) {
-            return back();
+        if ($request->hasFile('image')) {
+            $image = $request->file("image")->store('public');
+            File::delete($product->image);
+            $product->image = $image;
         }
-        return back()->with('success', "Product updated successfully");
+        $product->save();
+        if ($product->wasChanged()) {
+            return back()->with('success', "Product updated successfully");
+        }
+        return back();
     }
 
     public function destroy(string $id)

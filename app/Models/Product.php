@@ -17,4 +17,12 @@ class Product extends Model
     {
         return $this->belongsToMany(Order::class);
     }
+    public function image()
+    {
+        if ($this->image) {
+            return asset($this->image);
+        } else {
+            return asset('public/default.png');
+        }
+    }
 }

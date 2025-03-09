@@ -2,9 +2,13 @@
 @include("inc.message")
 @section("content")
 <div class="card-body">
-    <form action="{{route('products.update', $product->id)}}" method="post">
+    <form action="{{route('products.update', $product->id)}}" method="post" enctype="multipart/form-data">
         @csrf
         @method("PUT")
+        <div class="form-group">
+            <label>Product Image</label>
+            <input type="file" name="image" class="form-control ">
+        </div>
         <div class="form-group">
             <label>Product Name</label>
             <input type="text" class="form-control" name="name" value="{{is_null(old('name')) ? $product->name : old('name')}}">

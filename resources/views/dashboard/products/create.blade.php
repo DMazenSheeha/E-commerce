@@ -2,8 +2,12 @@
 @include("inc.message")
 @section("content")
 <div class="card-body">
-    <form action="{{route('products.store')}}" method="post">
+    <form class="form" action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
         @csrf
+        <div class="form-group">
+            <label>Product Image</label>
+            <input type="file" name="image" class="form-control">
+        </div>
         <div class="form-group">
             <label>Product Name</label>
             <input type="text" class="form-control" name="name" value="{{old('name')}}">

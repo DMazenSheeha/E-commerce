@@ -20,10 +20,10 @@
         </div>
         <div class="form-group">
             <label>Products</label>
-            <select name="products" multiple id="products" class="form-control" style="height: 100px !important;">
+            <select name="products[]" multiple id="products" class="form-control" style="height: 100px !important;">
                 @if($products->isNotEmpty())
                 @foreach($products as $product)
-                <option value="{{$product->id}}">{{$product->name}}</option>
+                <option value="{{$product->id}}" @selected(!is_null(old('products')) && in_array($product->id, old('products')))>{{$product->name}}</option>
                 @endforeach
                 @else
                 <option disabled>No products found for this category</option>

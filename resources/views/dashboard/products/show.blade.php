@@ -1,4 +1,4 @@
 @extends("dashboard.layouts.app")
 @section("content")
-Hello Iam Product
+<img src="{{$product->image()}}" width="500" alt="">
 @endsection
