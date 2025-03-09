@@ -5,16 +5,13 @@ namespace Database\Factories;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
- */
 class OrderFactory extends Factory
 {
     public function definition(): array
     {
         return [
             'name' => fake()->word(),
-            'user_id' => rand(1, 10)
+            'user_id' => rand(1, 30),
         ];
     }
     public function configure()

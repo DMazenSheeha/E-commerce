@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -14,42 +16,38 @@ class OrderController extends Controller
         return view("dashboard.orders.index", compact('orders'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        $categories = Category::all();
-        return view("dashboard.orders.create", compact('categories'));
+
+        $products = Product::select('id', 'name')->get();
+        $categories = Category::select('id', 'name')->get();
+        $users = User::select("id", 'name')->get();
+        return view("dashboard.orders.create", compact('categories', 'products', 'users'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'name' => ['required', 'min:3', 'max:50'],
             'products' => 'required',
-            'products*' => 'exists:products,id'
+            'products.*' => 'exists:products,id',
+            'user_id' => 'required|exists:users,id'
         ], [
             'name.required' => 'Order name is required',
             'name.min' => 'Order name must be 3 chars at least',
             'name.max' => 'Order name must be 50 chars at most',
             'products.required' => "Please choose products",
-            'products.exists' => 'One or more selected products do not exist'
+            'products.*.exists' => 'One or more selected products do not exist',
+            'user_id.required' => 'User is required',
+            'user_id.exists' => "User doesn't exist"
         ]);
         $order = new Order;
         $order->name = $request->name;
-        $order->user_id = 1;
+        $order->user_id = $request->user_id;
         $order->save();
         $order->products()->sync($request->products);
         return back()->with('success', 'Order Added successfully');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
 
     public function show()
     {
@@ -59,21 +57,37 @@ class OrderController extends Controller
     public function edit(string $id)
     {
         $order = Order::findOrFail($id);
-        $categories = Category::all();
-        return view('dashboard.orders.edit', compact('categories', 'order'));
+        $products = Product::select('id', 'name')->get();
+        $categories = Category::select('id', 'name')->get();
+        $users = User::select("id", 'name')->get();
+        return view('dashboard.orders.edit', compact('categories', 'order', 'products', 'users'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'min:3', 'max:50'],
+            'products' => 'required|array',
+            'products.*' => 'exists:products,id',
+            'user_id' => 'required|exists:users,id'
+        ], [
+            'name.required' => 'Order name is required',
+            'name.min' => 'Order name must be 3 chars at least',
+            'name.max' => 'Order name must be 50 chars at most',
+            'products.required' => "Please choose products",
+            'products.array' =>  "Products must be an array",
+            'products.*.exists' => 'One or more selected products do not exist',
+            'user_id.required' => 'User is required',
+            'user_id.exists' => "User doesn't exist"
+        ]);
+        $order = Order::findOrFail($id);
+        $order->name = $request->name;
+        $order->user_id = $request->user_id;
+        $order->save();
+        $order->products()->sync($request->products);
+        return back()->with('success', 'Order Updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $order = Order::findOrFail($id);

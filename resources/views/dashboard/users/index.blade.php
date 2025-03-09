@@ -4,7 +4,7 @@
 <a href="{{route('users.create')}}" class="btn bg-navy">Add New User</a>
 @endsection
 @section("content")
-@if(empty($users))
+@if(count($users) == 0)
 <h5 style="position: absolute; left: 50%; top: 40%; tranform: transalte(-50%);">No Users</h5>
 @else
 <table class="table table-striped">
@@ -13,6 +13,7 @@
             <th style="width: 10px">#</th>
             <th>User Name</th>
             <th>Email</th>
+            <th>Orders</th>
             <th>Delete</th>
         </tr>
     </thead>
@@ -22,6 +23,7 @@
             <td>{{$user->id}}</td>
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
+            <td><a href="{{route('users.orders', $user->id)}}" class="btn bg-indigo">Orders</a></td>
             <td>
                 <form action="{{route('users.destroy',$user->id)}}" class="delete-form" method="post">
                     @csrf

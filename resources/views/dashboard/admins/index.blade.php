@@ -4,6 +4,9 @@
 <a href="{{route('admins.create')}}" class="btn bg-navy">Add New Admin</a>
 @endsection
 @section("content")
+@if(count($admins) == 0)
+<h5 style="position: absolute; left: 50%; top: 40%; tranform: transalte(-50%);">No Admins</h5>
+@else
 <table class="table table-striped">
     <thead>
         <tr>
@@ -37,4 +40,5 @@
 <div>
     {{$admins->links()}}
 </div>
+@endif
 @endsection

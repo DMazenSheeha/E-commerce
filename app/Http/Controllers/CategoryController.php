@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -13,9 +14,10 @@ class CategoryController extends Controller
         return view("dashboard.categories.index", compact('categories'));
     }
 
-    public function searchByCategories()
+    public function products(string $id)
     {
-        return response()->json(["message" => "success"]);
+        $products = Product::where("category_id", $id)->paginate(15);
+        return view('dashboard.products.index', compact('products'));
     }
 
     public function create()

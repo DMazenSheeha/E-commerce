@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,11 @@ class UserController extends Controller
         return view('dashboard.users.create');
     }
 
+    public function show()
+    {
+        return view('dashboard.users.show');
+    }
+
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -30,9 +36,12 @@ class UserController extends Controller
         return back()->with('success', 'User added successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function orders(string $id)
+    {
+        $orders = Order::where('user_id', $id)->paginate(15);
+        return view('dashboard.orders.index', compact('orders'));
+    }
+
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);

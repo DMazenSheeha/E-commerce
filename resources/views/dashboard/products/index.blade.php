@@ -10,7 +10,7 @@
 </form>
 @endsection
 @section("content")
-@if(empty($products))
+@if(count($products) == 0)
 <h5 style="position: absolute; left: 50%; top: 40%; tranform: transalte(-50%);">No Products</h5>
 @else
 <table class="table table-striped">

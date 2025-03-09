@@ -16,7 +16,11 @@ class ProductController extends Controller
 
     public function searchByCategories(string $id)
     {
-        $products = Product::where('category_id', $id)->get();
+        if ($id == 0) {
+            $products = Product::all();
+        } else {
+            $products = Product::where('category_id', $id)->get();
+        }
         return response()->json(compact('products'));
     }
 
@@ -89,6 +93,7 @@ class ProductController extends Controller
             'price.required' => "Product price is required",
             'category.required' => 'Product category is required'
         ]);
+
         $product = Product::findOrFail($id);
         $product->name = $request->name;
         $product->price = $request->price;
