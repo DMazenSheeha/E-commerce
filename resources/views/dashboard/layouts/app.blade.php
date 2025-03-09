@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{$urlArray[count($urlArray) - 1] == "" ? ((auth()->guard('admin')->check() ? "Dashboard" : auth()->guard('web')->check() )? "Home" : "Hello Guest") : ucwords($urlArray[count($urlArray) - 1])}}</title>
+    <title>{{$urlArray[count($urlArray) - 1] == "" ? "Dashboard" : ucwords($urlArray[count($urlArray) - 1])}}</title>
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/css/adminlte.min.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 
