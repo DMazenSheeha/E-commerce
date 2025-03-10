@@ -21,6 +21,7 @@
 </style>
 @endsection
 @section("content")
+<input type="text" hidden value="{{route('orders.info')}}" id="url">
 <div class="row">
     <div class="col-lg-3 col-6">
         <div class="small-box text-bg-primary">
@@ -132,55 +133,59 @@
 @endsection
 @section("script")
 <script>
-    const sales_chart_options = {
-        series: [{
-                name: 'Digital Goods',
-                data: [28, 48, 40, 19, 86, 27, 90],
-            },
-            {
-                name: 'Electronics',
-                data: [65, 59, 80, 81, 56, 55, 40],
-            },
-        ],
-        chart: {
-            height: 300,
-            type: 'area',
-            toolbar: {
-                show: false,
-            },
-        },
-        legend: {
-            show: false,
-        },
-        colors: ['#0d6efd', '#20c997'],
-        dataLabels: {
-            enabled: false,
-        },
-        stroke: {
-            curve: 'smooth',
-        },
-        xaxis: {
-            type: 'datetime',
-            categories: [
-                '2023-01-01',
-                '2023-02-01',
-                '2023-03-01',
-                '2023-04-01',
-                '2023-05-01',
-                '2023-06-01',
-                '2023-07-01',
-            ],
-        },
-        tooltip: {
-            x: {
-                format: 'MMMM yyyy',
-            },
-        },
-    };
-    const sales_chart = new ApexCharts(
-        document.querySelector('#revenue-chart'),
-        sales_chart_options,
-    );
-    sales_chart.render();
+    const url = document.getElementById("url").value;
+    fetch(url, {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json, text-plain, */*",
+                "X-Requested-With": "XMLHttpRequest",
+            }
+        }).then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if (data.length == 0) {
+                document.querySelector('.connectedSortable').parentElement.remove();
+            } else {
+                const sales_chart_options = {
+                    series: [{
+                        name: 'Orders Count',
+                        data: data.data.map(date => date.count),
+                    }],
+                    chart: {
+                        height: 300,
+                        type: 'area',
+                        toolbar: {
+                            show: false,
+                        },
+                    },
+                    legend: {
+                        show: false,
+                    },
+                    colors: ['#0d6efd'],
+                    dataLabels: {
+                        enabled: false,
+                    },
+                    stroke: {
+                        curve: 'smooth',
+                    },
+                    xaxis: {
+                        type: 'datetime',
+                        categories: data.data.map(date => {
+                            return `${date.year}-${date.month}-01`
+                        }),
+                    },
+                    tooltip: {
+                        x: {
+                            format: 'MMMM yyyy',
+                        },
+                    },
+                };
+                const sales_chart = new ApexCharts(
+                    document.querySelector('#revenue-chart'),
+                    sales_chart_options,
+                );
+                sales_chart.render();
+            }
+        })
 </script>
 @endsection

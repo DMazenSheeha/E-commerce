@@ -140,9 +140,6 @@
             </div>
             @yield("content")
         </div>
-        <div class="app-footer">
-            Developed By <a href="https://www.instagram.com/shee_7a/" target="_blank">Mazen Sheeha</a>
-        </div>
     </div>
     <script>
         window.addEventListener("DOMContentLoaded", () => {

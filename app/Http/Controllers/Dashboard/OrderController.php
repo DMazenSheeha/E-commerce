@@ -95,4 +95,14 @@ class OrderController extends Controller
         $order->delete();
         return back()->with('success', 'Order deleted successfully');
     }
+
+    public function ordersInfo()
+    {
+        $orders = Order::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'DESC')
+            ->orderBy('month', 'ASC')
+            ->paginate(7);
+        return response()->json($orders);
+    }
 }
