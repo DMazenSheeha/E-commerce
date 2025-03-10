@@ -7,7 +7,7 @@
         @method("PUT")
         <div class="form-group">
             <label>Product Image</label>
-            <input type="file" name="image" class="form-control ">
+            <input type="file" name="image" class="form-control" style="height: 100%;">
         </div>
         <div class="form-group">
             <label>Product Name</label>
