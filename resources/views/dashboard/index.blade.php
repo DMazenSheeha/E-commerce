@@ -25,7 +25,7 @@
     <div class="col-lg-3 col-6">
         <div class="small-box text-bg-primary">
             <div class="inner">
-                <h3>150</h3>
+                <h3>{{$productsCount}}</h3>
                 <p>Products</p>
             </div>
             <svg
@@ -47,7 +47,7 @@
     <div class="col-lg-3 col-6">
         <div class="small-box text-bg-success">
             <div class="inner">
-                <h3>53<sup class="fs-5">%</sup></h3>
+                <h3>{{$ordersCount}}</h3>
                 <p>Orders</p>
             </div>
             <svg
@@ -69,8 +69,8 @@
     <div class="col-lg-3 col-6">
         <div class="small-box text-bg-warning">
             <div class="inner">
-                <h3>44</h3>
-                <p>User Registrations</p>
+                <h3>{{$usersCount}}</h3>
+                <p>Users</p>
             </div>
             <svg
                 class="small-box-icon"
@@ -91,7 +91,7 @@
     <div class="col-lg-3 col-6">
         <div class="small-box text-bg-danger">
             <div class="inner">
-                <h3>65</h3>
+                <h3>{{$adminsCount}}</h3>
                 <p>Admins</p>
             </div>
             <svg
@@ -118,48 +118,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-7 connectedSortable">
+    <div class="col-lg-12 connectedSortable">
         <div class="card mb-4">
             <div class="card-header">
                 <h3 class="card-title">Sales Value</h3>
             </div>
             <div class="card-body">
                 <div id="revenue-chart"></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-5 connectedSortable">
-        <div class="card text-white bg-primary bg-gradient border-primary mb-4">
-            <div class="card-header border-0">
-                <h3 class="card-title">Sales Value</h3>
-                <div class="card-tools">
-                    <button
-                        type="button"
-                        class="btn btn-primary btn-sm"
-                        data-lte-toggle="card-collapse">
-                        <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
-                        <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="card-body">
-                <div id="world-map" style="height: 220px"></div>
-            </div>
-            <div class="card-footer border-0">
-                <div class="row">
-                    <div class="col-4 text-center">
-                        <div id="sparkline-1" class="text-dark"></div>
-                        <div class="text-white">Visitors</div>
-                    </div>
-                    <div class="col-4 text-center">
-                        <div id="sparkline-2" class="text-dark"></div>
-                        <div class="text-white">Online</div>
-                    </div>
-                    <div class="col-4 text-center">
-                        <div id="sparkline-3" class="text-dark"></div>
-                        <div class="text-white">Sales</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
