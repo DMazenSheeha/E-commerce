@@ -118,18 +118,20 @@
         <div class="content-wrapper p-4">
             <div class="content-header">
                 <div class="float-left">
-                    @if($urlArray[count($urlArray) - 1] != "")
-                    @foreach($urlArray as $url)
-                    @if($urlArray[count($urlArray) - 1] !== $url)
-                    <a href="{{config('app.url').implode("/", array_slice($urlArray, 0,array_search($url, $urlArray) + 1))}}">{{ucwords($url)}}</a>
-                    @if($url !== $urlArray[0]) / @endif
-                    @else
-                    <h4>{{ucwords($url)}}</h4>
-                    @endif
-                    @endforeach
-                    @else
-                    <h4>Dashboard</h4>
-                    @endif
+                    <h6>
+                        @if($urlArray[count($urlArray) - 1] != "")
+                        @foreach($urlArray as $url)
+                        @if($urlArray[count($urlArray) - 1] !== $url)
+                        <a href="{{config('app.url').implode("/", array_slice($urlArray, 0,array_search($url, $urlArray) + 1))}}">{{ucwords($url)}}</a>
+                        @if($url !== $urlArray[0]) / @endif
+                        @else
+                        {{ucwords($url)}}
+                        @endif
+                        @endforeach
+                        @else
+                        Dashboard
+                        @endif
+                    </h6>
                 </div>
                 <div class="float-center">
                     @yield('header-center-section')
