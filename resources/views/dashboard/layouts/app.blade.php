@@ -6,117 +6,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$urlArray[count($urlArray) - 1] == "" ? "Dashboard" : ucwords($urlArray[count($urlArray) - 1])}}</title>
-    <link rel="stylesheet" href="{{ asset('vendor/adminlte/css/adminlte.min.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
-
-    <style>
-        .wrapper {
-            min-height: 100dvh;
-            height: fit-content;
-        }
-
-        .elevation-4 {
-            height: 100dvh;
-        }
-
-        .content-wrapper {
-            min-height: 90dvh !important;
-        }
-
-        .content-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 70px !important;
-            max-height: 70px !important;
-        }
-
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .loader .spinner {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
+    <meta
+        name="keywords"
+        content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard" />
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
+        integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
+        crossorigin="anonymous" />
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/styles/overlayscrollbars.min.css"
+        integrity="sha256-tZHrRjVqNSRyWg2wbppGnT833E/Ys0DHWGwT04GiqQg="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{asset('adminlte')}}/css/adminlte.css" />
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
+        integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0="
+        crossorigin="anonymous" />
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css"
+        integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{asset('main.css')}}">
     @yield("style")
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
+    <div class="app-wrapper">
         <div id="loader" class="loader">
             <span class="spinner"></span>
         </div>
         <div class="main-sidebar">
-            <aside class="main-sidebar sidebar-dark-primary elevation-4">
-                <a href="{{route('dashboard')}}" class="brand-link">
-                    <span class="brand-text font-weight-light">Dashboard</span>
-                </a>
-                <div class="sidebar">
+            <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+                <div class="sidebar-brand">
+                    <a href="{{route('dashboard')}}" class="brand-link">
+                        <span class="brand-text fw-light">Dashboard</span>
+                    </a>
+                </div>
+                <div class="sidebar-wrapper">
                     <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                        <ul
+                            class="nav sidebar-menu flex-column"
+                            data-lte-toggle="treeview"
+                            role="menu"
+                            data-accordion="false">
                             <li class="nav-item">
-                                <a href="{{route('products.index')}}" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
-                                    <p>
-                                        Products
-                                    </p>
+                                <a href="{{route('products.index')}}" class="nav-link @if(request()->is('products*')) active @endif">
+                                    <i class="nav-icon bi bi-circle text-danger"></i>
+                                    <p class="text">Products</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('categories.index')}}" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
-                                    <p>
-                                        Categories
-                                    </p>
+                                <a href="{{route('categories.index')}}" class="nav-link @if(request()->is('categories*')) active @endif">
+                                    <i class="nav-icon bi bi-circle text-danger"></i>
+                                    <p class="text">Categories</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('orders.index')}}" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
-                                    <p>
-                                        Orders
-                                    </p>
+                                <a href="{{route('orders.index')}}" class="nav-link @if(request()->is('orders*')) active @endif">
+                                    <i class="nav-icon bi bi-circle text-danger"></i>
+                                    <p class="text">Orders</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('users.index')}}" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
-                                    <p>
-                                        Users
-                                    </p>
+                                <a href="{{route('users.index')}}" class="nav-link @if(request()->is('users*')) active @endif">
+                                    <i class="nav-icon bi bi-circle text-danger"></i>
+                                    <p class="text">Users</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('admins.index')}}" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
-                                    <p>
-                                        Admins
-                                    </p>
+                                <a href="{{route('admins.index')}}" class="nav-link @if(request()->is('admins*')) active @endif">
+                                    <i class="nav-icon bi bi-circle text-danger"></i>
+                                    <p class="text">Admins</p>
                                 </a>
                             </li>
                         </ul>
@@ -149,11 +113,10 @@
             </div>
             @yield("content")
         </div>
-        <div class="main-footer">
+        <div class="app-footer">
             Developed By <a href="https://www.instagram.com/shee_7a/" target="_blank">Mazen Sheeha</a>
         </div>
     </div>
-    @yield("script")
     <script>
         window.addEventListener("DOMContentLoaded", () => {
             document.getElementById('loader').style.display = "flex";
@@ -162,7 +125,219 @@
             document.getElementById('loader').style.display = 'none';
         })
     </script>
-    <script src="{{ asset('vendor/adminlte/js/adminlte.min.js')}}"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
+        integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ="
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+    <script src="{{asset('adminlte')}}/js/adminlte.js"></script>
+    <script>
+        const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
+        const Default = {
+            scrollbarTheme: 'os-theme-light',
+            scrollbarAutoHide: 'leave',
+            scrollbarClickScroll: true,
+        };
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
+            if (sidebarWrapper && typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== 'undefined') {
+                OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+                    scrollbars: {
+                        theme: Default.scrollbarTheme,
+                        autoHide: Default.scrollbarAutoHide,
+                        clickScroll: Default.scrollbarClickScroll,
+                    },
+                });
+            }
+        });
+    </script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"
+        integrity="sha256-ipiJrswvAR4VAx/th+6zWsdeYmVae0iJuiR+6OqHJHQ="
+        crossorigin="anonymous"></script>
+    <script>
+        const connectedSortables = document.querySelectorAll('.connectedSortable');
+        connectedSortables.forEach((connectedSortable) => {
+            let sortable = new Sortable(connectedSortable, {
+                group: 'shared',
+                handle: '.card-header',
+            });
+        });
+        const cardHeaders = document.querySelectorAll('.connectedSortable .card-header');
+        cardHeaders.forEach((cardHeader) => {
+            cardHeader.style.cursor = 'move';
+        });
+    </script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
+        integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8="
+        crossorigin="anonymous"></script>
+    <script>
+        const sales_chart_options = {
+            series: [{
+                    name: 'Digital Goods',
+                    data: [28, 48, 40, 19, 86, 27, 90],
+                },
+                {
+                    name: 'Electronics',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                },
+            ],
+            chart: {
+                height: 300,
+                type: 'area',
+                toolbar: {
+                    show: false,
+                },
+            },
+            legend: {
+                show: false,
+            },
+            colors: ['#0d6efd', '#20c997'],
+            dataLabels: {
+                enabled: false,
+            },
+            stroke: {
+                curve: 'smooth',
+            },
+            xaxis: {
+                type: 'datetime',
+                categories: [
+                    '2023-01-01',
+                    '2023-02-01',
+                    '2023-03-01',
+                    '2023-04-01',
+                    '2023-05-01',
+                    '2023-06-01',
+                    '2023-07-01',
+                ],
+            },
+            tooltip: {
+                x: {
+                    format: 'MMMM yyyy',
+                },
+            },
+        };
+        const sales_chart = new ApexCharts(
+            document.querySelector('#revenue-chart'),
+            sales_chart_options,
+        );
+        sales_chart.render();
+    </script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js"
+        integrity="sha256-/t1nN2956BT869E6H4V1dnt0X5pAQHPytli+1nTZm2Y="
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js"
+        integrity="sha256-XPpPaZlU8S/HWf7FZLAncLg2SAkP8ScUTII89x9D3lY="
+        crossorigin="anonymous"></script>
+    <script>
+        const visitorsData = {
+            US: 398, // USA
+            SA: 400, // Saudi Arabia
+            CA: 1000, // Canada
+            DE: 500, // Germany
+            FR: 760, // France
+            CN: 300, // China
+            AU: 700, // Australia
+            BR: 600, // Brazil
+            IN: 800, // India
+            GB: 320, // Great Britain
+            RU: 3000, // Russia
+        };
+
+        const map = new jsVectorMap({
+            selector: '#world-map',
+            map: 'world',
+        });
+
+        const option_sparkline1 = {
+            series: [{
+                data: [1000, 1200, 920, 927, 931, 1027, 819, 930, 1021],
+            }, ],
+            chart: {
+                type: 'area',
+                height: 50,
+                sparkline: {
+                    enabled: true,
+                },
+            },
+            stroke: {
+                curve: 'straight',
+            },
+            fill: {
+                opacity: 0.3,
+            },
+            yaxis: {
+                min: 0,
+            },
+            colors: ['#DCE6EC'],
+        };
+
+        const sparkline1 = new ApexCharts(document.querySelector('#sparkline-1'), option_sparkline1);
+        sparkline1.render();
+
+        const option_sparkline2 = {
+            series: [{
+                data: [515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921],
+            }, ],
+            chart: {
+                type: 'area',
+                height: 50,
+                sparkline: {
+                    enabled: true,
+                },
+            },
+            stroke: {
+                curve: 'straight',
+            },
+            fill: {
+                opacity: 0.3,
+            },
+            yaxis: {
+                min: 0,
+            },
+            colors: ['#DCE6EC'],
+        };
+
+        const sparkline2 = new ApexCharts(document.querySelector('#sparkline-2'), option_sparkline2);
+        sparkline2.render();
+
+        const option_sparkline3 = {
+            series: [{
+                data: [15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21],
+            }, ],
+            chart: {
+                type: 'area',
+                height: 50,
+                sparkline: {
+                    enabled: true,
+                },
+            },
+            stroke: {
+                curve: 'straight',
+            },
+            fill: {
+                opacity: 0.3,
+            },
+            yaxis: {
+                min: 0,
+            },
+            colors: ['#DCE6EC'],
+        };
+
+        const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);
+        sparkline3.render();
+    </script>
+    @yield("script")
 </body>
 
 </html>

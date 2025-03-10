@@ -25,7 +25,7 @@
             <td>{{$user->email}}</td>
             <td><a href="{{route('users.orders', $user->id)}}" class="btn bg-indigo">Orders</a></td>
             <td>
-                <form action="{{route('users.destroy',$user->id)}}" class="delete-form" method="post">
+                <form action="{{route('users.destroy',$user->id)}}" class="delete-form m-0" method="post">
                     @csrf
                     @method('DELETE')
                     <button class="btn bg-maroon">Delete</button>

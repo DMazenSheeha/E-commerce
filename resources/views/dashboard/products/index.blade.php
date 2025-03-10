@@ -5,8 +5,8 @@
 @endsection
 @section('header-center-section')
 <form action="{{route('products.searchByName')}}" class="form d-flex">
-    <input type=" text" class="form-control mr-2" required placeholder="Search..." name="q">
-    <button class="btn bg-purple">Search</button>
+    <input type=" text" class="form-control" required placeholder="Search..." name="q">
+    <button class="btn bg-purple m-3 my-0">Search</button>
 </form>
 @endsection
 @section("content")
@@ -35,7 +35,7 @@
             <td><a href="{{route('products.show', $product->id)}}" class="btn bg-indigo">View</a></td>
             <td><a href="{{route('products.edit',$product->id)}}" class="btn bg-teal">Edit</a></td>
             <td>
-                <form action="{{route('products.destroy',$product->id)}}" class="delete-form" method="post">
+                <form action="{{route('products.destroy',$product->id)}}" method="post" class="delete-form m-0">
                     @csrf
                     @method('DELETE')
                     <button class="btn bg-maroon">Delete</button>

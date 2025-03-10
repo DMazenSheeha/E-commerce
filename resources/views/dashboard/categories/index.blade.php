@@ -25,7 +25,7 @@
             <td><a href="{{route('categories.products',$category->id)}}" class="btn bg-indigo">Products</a></td>
             <td><a href="{{route('categories.edit',$category->id)}}" class="btn bg-teal ">Edit</a></td>
             <td>
-                <form action="{{route('categories.destroy',$category->id)}}" class="delete-form" method="post">
+                <form action="{{route('categories.destroy',$category->id)}}" class="delete-form m-0" method="post">
                     @csrf
                     @method('DELETE')
                     <button class="btn bg-maroon">Delete</button>

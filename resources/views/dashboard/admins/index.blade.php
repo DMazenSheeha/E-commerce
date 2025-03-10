@@ -27,7 +27,7 @@
                 <a href="{{route('admins.edit',$admin->id)}}" class="btn bg-teal">Edit</a>
             </td>
             <td>
-                <form action="{{route('admins.destroy',$admin->id)}}" class="delete-form" method="post">
+                <form action="{{route('admins.destroy',$admin->id)}}" class="delete-form m-0" method="post">
                     @csrf
                     @method('DELETE')
                     <button class="btn bg-maroon">Delete</button>

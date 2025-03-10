@@ -8,7 +8,7 @@
             <label>Category Name</label>
             <input type="text" class="form-control" name="name" value="{{is_null(old('name')) ? $category->name : old('name')}}">
         </div>
-        <button type="submit" class="btn bg-teal form-control">Add</button>
+        <button type="submit" class="btn bg-teal form-control mt-3">Add</button>
     </form>
 </div>
 @endsection

@@ -5,19 +5,19 @@
     <form class="form" action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label>Product Image</label>
-            <input type="file" name="image" class="form-control" style="height: 100%;">
+            <label class="mt-3">Product Image</label>
+            <input type="file" name="image" class="form-control">
         </div>
         <div class="form-group">
-            <label>Product Name</label>
+            <label class="mt-3">Product Name</label>
             <input type="text" class="form-control" name="name" value="{{old('name')}}">
         </div>
         <div class="form-group">
-            <label>Product Price</label>
+            <label class="mt-3">Product Price</label>
             <input type="text" class="form-control" name="price" id="priceInput" value="{{old('price')}}">
         </div>
         <div class="form-group">
-            <label>Category</label>
+            <label class="mt-3">Category</label>
             <select class="form-control" name="category_id" id="role">
                 @foreach($categories as $cat)
                 <option @selected(old("category")==$cat->id) value="{{$cat->id}}">{{$cat->name}}</option>
@@ -25,7 +25,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label>Description</label>
+            <label class="mt-3">Description</label>
             <textarea class="form-control" id="message" name="desc" rows="4">{{old("desc")}}</textarea>
         </div>
         <button type="submit" class="btn bg-teal form-control">Add</button>

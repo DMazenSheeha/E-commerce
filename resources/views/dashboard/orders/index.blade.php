@@ -27,7 +27,7 @@
             <td><a href="{{route('orders.show', $order->id)}}" class="btn bg-indigo">View</a></td>
             <td><a href="{{route('orders.edit',$order->id)}}" class="btn bg-teal">Edit</a></td>
             <td>
-                <form action="{{route('orders.destroy',$order->id)}}" class="delete-form" method="post">
+                <form action="{{route('orders.destroy',$order->id)}}" class="delete-form m-0" method="post">
                     @csrf
                     @method('DELETE')
                     <button class="btn bg-maroon">Delete</button>
