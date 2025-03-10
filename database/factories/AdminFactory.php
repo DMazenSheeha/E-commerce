@@ -12,8 +12,8 @@ class AdminFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'Mohammed',
-            'email' => 'mohammed@admin.com',
+            'name' => 'Osama',
+            'email' => 'osama@admin.com',
             'password' => bcrypt('12345678'),
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
