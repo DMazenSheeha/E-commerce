@@ -8,7 +8,8 @@ use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [DasboardController::class, 'dashboard'])->name('dashboard');
+Route::get('/', fn() => to_route('dashboard'));
+Route::get('/dashboard', [DasboardController::class, 'dashboard'])->name('dashboard');
 Route::get("/products/search", [ProductController::class, 'searchByName'])->name("products.searchByName");
 Route::resource("/products", ProductController::class);
 Route::get("/products/search/{category}", [ProductController::class, 'searchByCategories'])->name("products.search");

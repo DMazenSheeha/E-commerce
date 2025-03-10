@@ -31,6 +31,7 @@
         integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4="
         crossorigin="anonymous" />
     <link rel="stylesheet" href="{{asset('main.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @yield("style")
 </head>
 
@@ -39,55 +40,81 @@
         <div id="loader" class="loader">
             <span class="spinner"></span>
         </div>
-        <div class="main-sidebar">
-            <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
-                <div class="sidebar-brand">
-                    <a href="{{route('dashboard')}}" class="brand-link">
-                        <span class="brand-text fw-light">Dashboard</span>
-                    </a>
-                </div>
-                <div class="sidebar-wrapper">
-                    <nav class="mt-2">
-                        <ul
-                            class="nav sidebar-menu flex-column"
-                            data-lte-toggle="treeview"
-                            role="menu"
-                            data-accordion="false">
-                            <li class="nav-item">
-                                <a href="{{route('products.index')}}" class="nav-link @if(request()->is('products*')) active @endif">
-                                    <i class="nav-icon bi bi-circle text-danger"></i>
-                                    <p class="text">Products</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('categories.index')}}" class="nav-link @if(request()->is('categories*')) active @endif">
-                                    <i class="nav-icon bi bi-circle text-danger"></i>
-                                    <p class="text">Categories</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('orders.index')}}" class="nav-link @if(request()->is('orders*')) active @endif">
-                                    <i class="nav-icon bi bi-circle text-danger"></i>
-                                    <p class="text">Orders</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('users.index')}}" class="nav-link @if(request()->is('users*')) active @endif">
-                                    <i class="nav-icon bi bi-circle text-danger"></i>
-                                    <p class="text">Users</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('admins.index')}}" class="nav-link @if(request()->is('admins*')) active @endif">
-                                    <i class="nav-icon bi bi-circle text-danger"></i>
-                                    <p class="text">Admins</p>
-                                </a>
+        <nav class="app-header navbar sidebar-expand navbar-expand bg-body">
+            <div class="container-fluid">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link h-100 d-flex align-items-center" data-lte-toggle="sidebar" role="button">
+                            <i class="fa-solid fa-list"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-md-block"><a href="{{route('dashboard')}}" class="nav-link">Dashboard</a></li>
+                    <li class="nav-item d-none d-md-block"><a href="{{route('products.index')}}" class="nav-link">Products</a></li>
+                    <li class="nav-item d-none d-md-block"><a href="{{route('categories.index')}}" class="nav-link">Categories</a></li>
+                    <li class="nav-item d-none d-md-block"><a href="{{route('users.index')}}" class="nav-link">Users</a></li>
+                    <li class="nav-item d-none d-md-block"><a href="{{route('admins.index')}}" class="nav-link">Admins</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown user-menu">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <span class="d-none d-md-inline">Alexander Pierce</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                            <li class="user-footer" style="width: fit-content;">
+                                <a href="#" class="float-end link">Sign out</a>
                             </li>
                         </ul>
-                    </nav>
-                </div>
-            </aside>
-        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+            <div class="sidebar-brand">
+                <a href="{{route('dashboard')}}" class="brand-link">
+                    <span class="brand-text fw-light">Dashboard</span>
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <nav class="mt-2">
+                    <ul
+                        class="nav sidebar-menu flex-column"
+                        data-lte-toggle="treeview"
+                        role="menu"
+                        data-accordion="false">
+                        <li class="nav-item">
+                            <a href="{{route('products.index')}}" class="nav-link @if(request()->is('products*')) active @endif">
+                                <i class="nav-icon bi bi-circle text-danger"></i>
+                                <p class="text">Products</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('categories.index')}}" class="nav-link @if(request()->is('categories*')) active @endif">
+                                <i class="nav-icon bi bi-circle text-danger"></i>
+                                <p class="text">Categories</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('orders.index')}}" class="nav-link @if(request()->is('orders*')) active @endif">
+                                <i class="nav-icon bi bi-circle text-danger"></i>
+                                <p class="text">Orders</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('users.index')}}" class="nav-link @if(request()->is('users*')) active @endif">
+                                <i class="nav-icon bi bi-circle text-danger"></i>
+                                <p class="text">Users</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admins.index')}}" class="nav-link @if(request()->is('admins*')) active @endif">
+                                <i class="nav-icon bi bi-circle text-danger"></i>
+                                <p class="text">Admins</p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
         <div class="content-wrapper p-4">
             <div class="content-header">
                 <div class="float-left">
@@ -97,11 +124,11 @@
                     <a href="{{config('app.url').implode("/", array_slice($urlArray, 0,array_search($url, $urlArray) + 1))}}">{{ucwords($url)}}</a>
                     @if($url !== $urlArray[0]) / @endif
                     @else
-                    {{ucwords($url)}}
+                    <h4>{{ucwords($url)}}</h4>
                     @endif
                     @endforeach
                     @else
-                    Dashboard
+                    <h4>Dashboard</h4>
                     @endif
                 </div>
                 <div class="float-center">
@@ -179,58 +206,6 @@
         src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
         integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8="
         crossorigin="anonymous"></script>
-    <script>
-        const sales_chart_options = {
-            series: [{
-                    name: 'Digital Goods',
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                },
-                {
-                    name: 'Electronics',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                },
-            ],
-            chart: {
-                height: 300,
-                type: 'area',
-                toolbar: {
-                    show: false,
-                },
-            },
-            legend: {
-                show: false,
-            },
-            colors: ['#0d6efd', '#20c997'],
-            dataLabels: {
-                enabled: false,
-            },
-            stroke: {
-                curve: 'smooth',
-            },
-            xaxis: {
-                type: 'datetime',
-                categories: [
-                    '2023-01-01',
-                    '2023-02-01',
-                    '2023-03-01',
-                    '2023-04-01',
-                    '2023-05-01',
-                    '2023-06-01',
-                    '2023-07-01',
-                ],
-            },
-            tooltip: {
-                x: {
-                    format: 'MMMM yyyy',
-                },
-            },
-        };
-        const sales_chart = new ApexCharts(
-            document.querySelector('#revenue-chart'),
-            sales_chart_options,
-        );
-        sales_chart.render();
-    </script>
     <script
         src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js"
         integrity="sha256-/t1nN2956BT869E6H4V1dnt0X5pAQHPytli+1nTZm2Y="
@@ -239,104 +214,6 @@
         src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js"
         integrity="sha256-XPpPaZlU8S/HWf7FZLAncLg2SAkP8ScUTII89x9D3lY="
         crossorigin="anonymous"></script>
-    <script>
-        const visitorsData = {
-            US: 398, // USA
-            SA: 400, // Saudi Arabia
-            CA: 1000, // Canada
-            DE: 500, // Germany
-            FR: 760, // France
-            CN: 300, // China
-            AU: 700, // Australia
-            BR: 600, // Brazil
-            IN: 800, // India
-            GB: 320, // Great Britain
-            RU: 3000, // Russia
-        };
-
-        const map = new jsVectorMap({
-            selector: '#world-map',
-            map: 'world',
-        });
-
-        const option_sparkline1 = {
-            series: [{
-                data: [1000, 1200, 920, 927, 931, 1027, 819, 930, 1021],
-            }, ],
-            chart: {
-                type: 'area',
-                height: 50,
-                sparkline: {
-                    enabled: true,
-                },
-            },
-            stroke: {
-                curve: 'straight',
-            },
-            fill: {
-                opacity: 0.3,
-            },
-            yaxis: {
-                min: 0,
-            },
-            colors: ['#DCE6EC'],
-        };
-
-        const sparkline1 = new ApexCharts(document.querySelector('#sparkline-1'), option_sparkline1);
-        sparkline1.render();
-
-        const option_sparkline2 = {
-            series: [{
-                data: [515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921],
-            }, ],
-            chart: {
-                type: 'area',
-                height: 50,
-                sparkline: {
-                    enabled: true,
-                },
-            },
-            stroke: {
-                curve: 'straight',
-            },
-            fill: {
-                opacity: 0.3,
-            },
-            yaxis: {
-                min: 0,
-            },
-            colors: ['#DCE6EC'],
-        };
-
-        const sparkline2 = new ApexCharts(document.querySelector('#sparkline-2'), option_sparkline2);
-        sparkline2.render();
-
-        const option_sparkline3 = {
-            series: [{
-                data: [15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21],
-            }, ],
-            chart: {
-                type: 'area',
-                height: 50,
-                sparkline: {
-                    enabled: true,
-                },
-            },
-            stroke: {
-                curve: 'straight',
-            },
-            fill: {
-                opacity: 0.3,
-            },
-            yaxis: {
-                min: 0,
-            },
-            colors: ['#DCE6EC'],
-        };
-
-        const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);
-        sparkline3.render();
-    </script>
     @yield("script")
 </body>
 

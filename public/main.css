@@ -1,9 +1,14 @@
+/* تأثيرات الـ sidebar */
+.app-sidebar {
+    transition: all 0.3s ease;
+}
+
 .app-wrapper {
     min-height: 100dvh;
     height: fit-content;
 }
 
-.sidebar-wrapper {
+.app-sidebar {
     min-height: 100dvh;
     height: 100%;
 }
@@ -52,6 +57,10 @@
 
 a {
     text-decoration: none;
+}
+
+.link {
+    color: inherit;
 }
 
 .loader {
