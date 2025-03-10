@@ -6,7 +6,7 @@
         @csrf
         <div class="form-group">
             <label class="mt-3">Product Image</label>
-            <input type="file" name="image" class="form-control">
+            <input type="file" name="image" class="form-control" value="{{old('image')}}">
         </div>
         <div class="form-group">
             <label class="mt-3">Product Name</label>
@@ -28,7 +28,7 @@
             <label class="mt-3">Description</label>
             <textarea class="form-control" id="message" name="desc" rows="4">{{old("desc")}}</textarea>
         </div>
-        <button type="submit" class="btn bg-teal form-control">Add</button>
+        <button type="submit" class="btn bg-teal form-control mt-3">Add</button>
     </form>
 </div>
 @endsection

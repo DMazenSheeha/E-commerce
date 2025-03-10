@@ -55,7 +55,13 @@
                     <li class="nav-item d-none d-md-block"><a href="{{route('admins.index')}}" class="nav-link">Admins</a></li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown user-menu">
+                    <li class="nav-item">
+                        <form action="{{route('products.searchByName')}}" class="d-flex align-items-center justify-center h-100">
+                            <input type=" text" class="form-control" required placeholder="Search products..." name="q" style="width: 200px;">
+                            <button class="btn bg-purple m-3 my-0">Search</button>
+                        </form>
+                    </li>
+                    <li class="nav-item dropdown user-menu d-flex align-items-center">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <span class="d-none d-md-inline">Alexander Pierce</span>
                         </a>

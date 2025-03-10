@@ -53,7 +53,7 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => ['required', 'string', 'min:3', 'unique:categories,name'],
+            'name' => ['required', 'string', 'min:3', 'unique:categories,name,' . $id],
         ], [
             'name.required' => 'Category name is required',
             'name.string' => 'Please write a valid category name',
@@ -61,10 +61,11 @@ class CategoryController extends Controller
         ]);
         $category = Category::findOrFail($id);
         $category->name = $request->name;
-        if (!$category->isDirty()) {
-            return back();
+        $category->save();
+        if ($category->wasChanged()) {
+            return back()->with('success', 'Category updated succefully');
         }
-        return back()->with('success', 'Category updated succefully');
+        return back();
     }
 
     public function destroy(string $id)

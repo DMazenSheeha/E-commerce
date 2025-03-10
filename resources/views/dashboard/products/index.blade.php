@@ -3,12 +3,6 @@
 @section("header-right-section")
 <a href="{{route('products.create')}}" class="btn bg-navy">Add New Product</a>
 @endsection
-@section('header-center-section')
-<form action="{{route('products.searchByName')}}" class="form d-flex">
-    <input type=" text" class="form-control" required placeholder="Search..." name="q">
-    <button class="btn bg-purple m-3 my-0">Search</button>
-</form>
-@endsection
 @section("content")
 @if(count($products) == 0)
 <h5 style="position: absolute; left: 50%; top: 40%; tranform: transalte(-50%);">No Products</h5>
