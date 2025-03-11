@@ -67,7 +67,10 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                             <li class="user-footer" style="width: fit-content;">
-                                <a href="#" class="float-end link">Sign out</a>
+                                <form action="{{route('logout')}}" method="post">
+                                    @csrf
+                                    <button class="float-end">Sign out</button>
+                                </form>
                             </li>
                         </ul>
                     </li>

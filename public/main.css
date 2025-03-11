@@ -17,6 +17,11 @@
     min-height: 90dvh !important;
 }
 
+button {
+    border: none;
+    background-color: inherit;
+}
+
 .content-header {
     display: flex;
     justify-content: space-between;
