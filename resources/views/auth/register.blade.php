@@ -8,7 +8,7 @@
         @csrf
         <div class="form-group first">
             <label>Username</label>
-            <input type="text" class="form-control" name="name" placeholder="Your Username" value="{{old('name')}}">
+            <input type="text" class="form-control" name="name" placeholder="Your Username">
         </div>
         <div class="form-group last mb-3">
             <label>Email</label>
