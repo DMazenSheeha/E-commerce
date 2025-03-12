@@ -102,7 +102,7 @@ class OrderController extends Controller
             ->groupBy('year', 'month')
             ->orderBy('year', 'DESC')
             ->orderBy('month', 'ASC')
-            ->paginate(7);
+            ->paginate(2);
         return response()->json($orders);
     }
 }
