@@ -91,31 +91,31 @@
                         role="menu"
                         data-accordion="false">
                         <li class="nav-item">
-                            <a href="{{route('products.index')}}" class="nav-link @if(request()->is('products*')) active @endif">
+                            <a href="{{route('products.index')}}" class="nav-link @if(request()->is('admin/products*')) active @endif">
                                 <i class="nav-icon bi bi-circle text-danger"></i>
                                 <p class="text">Products</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('categories.index')}}" class="nav-link @if(request()->is('categories*')) active @endif">
+                            <a href="{{route('categories.index')}}" class="nav-link @if(request()->is('admin/categories*')) active @endif">
                                 <i class="nav-icon bi bi-circle text-danger"></i>
                                 <p class="text">Categories</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('orders.index')}}" class="nav-link @if(request()->is('orders*')) active @endif">
+                            <a href="{{route('orders.index')}}" class="nav-link @if(request()->is('admin/orders*')) active @endif">
                                 <i class="nav-icon bi bi-circle text-danger"></i>
                                 <p class="text">Orders</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('users.index')}}" class="nav-link @if(request()->is('users*')) active @endif">
+                            <a href="{{route('users.index')}}" class="nav-link @if(request()->is('admin/users*')) active @endif">
                                 <i class="nav-icon bi bi-circle text-danger"></i>
                                 <p class="text">Users</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admins.index')}}" class="nav-link @if(request()->is('admins*')) active @endif">
+                            <a href="{{route('admins.index')}}" class="nav-link @if(request()->is('admin/admins*')) active @endif">
                                 <i class="nav-icon bi bi-circle text-danger"></i>
                                 <p class="text">Admins</p>
                             </a>
