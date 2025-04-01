@@ -3,12 +3,15 @@
 @section('title') Register @endsection
 @section("content")
 <div class="col-md-7">
+    <div id="loader" class="loader">
+        <span class="spinner"></span>
+    </div>
     <h3 class="mb-3">Register</h3>
     <form action="{{route('register')}}" method="post">
         @csrf
         <div class="form-group first">
             <label>Username</label>
-            <input type="text" class="form-control" name="name" placeholder="Your Username">
+            <input type="text" class="form-control" name="name" placeholder="Your Username" value="{{old('name')}}">
         </div>
         <div class="form-group last mb-3">
             <label>Email</label>

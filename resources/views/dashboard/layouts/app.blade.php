@@ -63,7 +63,7 @@
                     </li>
                     <li class="nav-item dropdown user-menu d-flex align-items-center">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <span class="d-none d-md-inline">Alexander Pierce</span>
+                            <span class="d-none d-md-inline">{{auth()->guard('admin')->user()->name}}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                             <li class="user-footer" style="width: fit-content;">

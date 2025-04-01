@@ -22,7 +22,7 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:users,email|unique:admins,email',
             'password' => 'required|min:8|string|confirmed'
         ]);
         $user = User::create($validated);

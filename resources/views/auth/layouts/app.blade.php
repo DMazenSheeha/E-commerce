@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{asset('loginForm')}}/css/owl.carousel.min.css">
     <link rel="stylesheet" href="{{asset('loginForm')}}/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('loginForm')}}/css/style.css">
+    <link rel="stylesheet" href="{{asset('main.css')}}">
 </head>
 
 <body>
@@ -28,6 +29,14 @@
     <script src="{{asset('loginForm')}}/js/popper.min.js"></script>
     <script src="{{asset('loginForm')}}/js/bootstrap.min.js"></script>
     <script src="{{asset('loginForm')}}/js/main.js"></script>
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('loader').style.display = "flex";
+        })
+        window.addEventListener("load", () => {
+            document.getElementById('loader').style.display = 'none';
+        })
+    </script>
 </body>
 
 </html>

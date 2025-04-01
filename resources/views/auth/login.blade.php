@@ -3,12 +3,15 @@
 @section('title') Login @endsection
 @section("content")
 <div class="col-md-7">
+    <div id="loader" class="loader">
+        <span class="spinner"></span>
+    </div>
     <h3 class="mb-3">Login</h3>
     <form action="{{route('login')}}" method="post">
         @csrf
         <div class="form-group last mb-3">
             <label>Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="example@gmail.com">
+            <input type="email" class="form-control" id="email" name="email" placeholder="example@gmail.com" value="{{old('email')}}">
         </div>
         <div class="form-group last mb-3">
             <label>Password</label>

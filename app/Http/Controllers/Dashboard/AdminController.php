@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -21,18 +22,12 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => ['required', 'min:3', 'max:20', 'string', 'unique:admins,name'],
             'email' => ['required', 'email', 'unique:users,email', 'regex:/@admin\.com$/', 'unique:admins,email'],
             'password' => ['required', 'min:6', 'max:20', 'confirmed'],
         ]);
-        $admin = new Admin;
-        $admin->name = $request->name;
-        $admin->email = $request->email;
-        if ($request->has('password') && $request->password != '') {
-            $admin->password = bcrypt($request->password);
-        }
-        $admin->save();
+        Admin::create($validated);
         return back()->with('success', 'Admin added successfully');
     }
 

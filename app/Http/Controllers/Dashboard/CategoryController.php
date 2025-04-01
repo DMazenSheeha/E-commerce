@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use File;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -30,11 +31,13 @@ class CategoryController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'min:3', 'unique:categories,name'],
+            'image' => ['required', 'image', 'mimes:jpg,jpeg,png']
         ], [
             'name.required' => 'Category name is required',
             'name.string' => 'Please write a valid category name',
             'name.min' => 'Category name must be 3 chars at least',
         ]);
+        $data['image'] = $request->file('image')->store('public');
         Category::create($data);
         return back()->with('success', 'Category added succefully');
     }
@@ -72,6 +75,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->delete();
+        File::delete($category->image);;
         return back()->with('success', 'Category deleted successfully');
     }
 }
