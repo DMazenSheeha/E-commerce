@@ -13,7 +13,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::orderBy('id', 'DESC')->paginate(15);
+        $orders = Order::with('products')->orderBy('id', 'DESC')->paginate(15);
         return view("dashboard.orders.index", compact('orders'));
     }
 
@@ -50,9 +50,11 @@ class OrderController extends Controller
         return back()->with('success', 'Order Added successfully');
     }
 
-    public function show()
+    public function show(string $id)
     {
-        return view("dashboard.orders.show");
+        $order = Order::findOrFail($id);
+        $totalPrice = $order->products()->sum('price');
+        return view("dashboard.orders.show", compact('order', 'totalPrice'));
     }
 
     public function edit(string $id)
@@ -82,11 +84,16 @@ class OrderController extends Controller
             'user_id.exists' => "User doesn't exist"
         ]);
         $order = Order::findOrFail($id);
+        $oldProducts = $order->products->pluck('id')->sort()->values()->toArray();
+        $newProducts = collect($request->products)->sort()->values()->toArray();
         $order->name = $request->name;
         $order->user_id = $request->user_id;
         $order->save();
         $order->products()->sync($request->products);
-        return back()->with('success', 'Order Updated successfully');
+        if ($order->wasChanged() || $oldProducts != $newProducts) {
+            return back()->with('success', 'Order Updated successfully');
+        }
+        return back();
     }
 
     public function destroy(string $id)

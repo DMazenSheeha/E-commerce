@@ -6,9 +6,9 @@
         @csrf
         <div class="form-group">
             <label>Category Image</label>
-            <input type="file" name="image">
+            <input type="file" name="image" class="form-control">
         </div>
-        <div class="form-group">
+        <div class="form-group mt-3">
             <label>Category Name</label>
             <input type="text" class="form-control" name="name">
         </div>

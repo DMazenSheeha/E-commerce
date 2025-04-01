@@ -10,7 +10,6 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->word(),
             'user_id' => rand(1, 30),
         ];
     }

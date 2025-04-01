@@ -11,8 +11,8 @@
     <thead>
         <tr>
             <th style="width: 10px">#</th>
-            <th>Order Name</th>
             <th>User</th>
+            <th>Total Price</th>
             <th>Veiw</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -22,8 +22,8 @@
         @foreach($orders as $order)
         <tr class="align-middle">
             <td>{{$order->id}}</td>
-            <td>{{$order->name}}</td>
             <td>{{$order->user->name}}</td>
+            <td>${{$order->products->sum('price')}}</td>
             <td><a href="{{route('orders.show', $order->id)}}" class="btn bg-indigo">View</a></td>
             <td><a href="{{route('orders.edit',$order->id)}}" class="btn bg-teal">Edit</a></td>
             <td>

@@ -44,7 +44,8 @@ class CategoryController extends Controller
 
     public function show(string $id)
     {
-        return view('dashboard.categories.show');
+        $categoryName = Category::findOrFail($id)->name;
+        return view('dashboard.categories.show', compact('categoryName'));
     }
 
     public function edit(string $id)

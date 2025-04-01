@@ -43,7 +43,7 @@ class AuthController extends Controller
             return to_route('front.index')->with('success', 'Logged in successfully');
         } elseif (auth()->guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-            return to_route('dashboard')->with('success', 'Admin logged in successfully');
+            return to_route('dashboard')->with('success', 'logged in successfully');
         }
 
         return back()->withErrors(['email' => 'Invalid credentials']);

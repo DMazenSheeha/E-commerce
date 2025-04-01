@@ -1,4 +1,5 @@
 @extends("dashboard.layouts.app")
+@include("inc.message")
 @section("style")
 <style>
     .small-box-icon {

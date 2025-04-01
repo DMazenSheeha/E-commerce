@@ -21,9 +21,11 @@ class UserController extends Controller
         return view('dashboard.users.create');
     }
 
-    public function show()
+    public function show(string $id)
     {
-        return view('dashboard.users.show');
+        $user = User::findOrFail($id);
+        $ordersCount = Order::where('user_id', $user->id)->count();
+        return view('dashboard.users.show', compact('user', 'ordersCount'));
     }
 
     public function store(Request $request)

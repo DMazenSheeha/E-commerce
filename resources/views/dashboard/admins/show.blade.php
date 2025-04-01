@@ -1,12 +1,12 @@
 @extends("dashboard.layouts.app")
 @include("inc.message")
 @section("content")
-<div>
+<div class="show-page">
     <div>
-        Name : {{$admin->name}}
+        Name : <span style="text-decoration: underline;">{{$admin->name}}</span>
     </div>
     <div>
-        Email : {{$admin->email}}
+        Email : <span style="text-decoration: underline;">{{$admin->email}}</span>
     </div>
 </div>
 @endsection

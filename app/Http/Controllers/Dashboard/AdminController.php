@@ -40,22 +40,17 @@ class AdminController extends Controller
     public function update(Request $request, string $id)
     {
         $admin = Admin::findOrFail($id);
-        $request->validate([
+        $validated = $request->validate([
             'name' => ['required', 'min:3', 'max:20', 'string', 'unique:admins,name,' . $admin->id],
             'email' => ['required', 'email', 'regex:/@admin\.com$/', 'unique:users,email,' . $admin->id, 'unique:admins,email,' . $admin->id],
-            'password' => ['nullable', 'string', 'min:6', 'max:30'],
-            'password_confirmation' => ['nullable', 'string', 'same:password'],
+            'password' => ['nullable', 'string', 'min:6', 'max:30', 'confirmed'],
         ]);
-        $admin->name = $request->name;
-        $admin->email = $request->email;
-        if ($request->has('password') && $request->password != '') {
-            $admin->password = bcrypt($request->password);
-        }
-        $admin->save();
-        if ($admin->wasChanged()) {
+        $old = $admin;
+        $validated['password'] = $request->has('password') && $request->password != "" ? bcrypt($request->password) : $admin->password;
+        Admin::where('id', $id)->update($validated);
+        if ($validated['name'] != $old->name || $validated['email'] != $old->email || ($request->has('password') && $request->password != '')) {
             return back()->with('success', 'Admin updated successfully');
         }
-
         return back();
     }
 

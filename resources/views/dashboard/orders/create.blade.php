@@ -39,7 +39,7 @@
                 @endforeach
             </select>
         </div>
-        <button type="submit" class="btn bg-teal form-control">Add</button>
+        <button type="submit" class="btn bg-teal form-control mt-3">Add</button>
     </form>
 </div>
 @endsection
