@@ -17,4 +17,10 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+    public function image()
+    {
+        if ($this->image) {
+            return asset($this->image);
+        }
+    }
 }

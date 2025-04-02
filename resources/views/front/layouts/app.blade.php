@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>MultiShop - Online Shop Website Template</title>
+    <title>{{config('app.name')}}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -41,13 +41,13 @@
                 </a>
             </div>
             <div class="col-lg-4 col-6 text-left">
-                <form action="">
+                <form action="{{route('shop.search')}}" method="get">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products">
+                        <input type="text" class="form-control" name="q" placeholder="Search for products">
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
+                            <button class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
-                            </span>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -77,7 +77,7 @@
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                     <div class="navbar-nav w-100" style="max-height: 500px; overflow-y:scroll;">
                         @foreach($categories as $category)
-                        <a href="" class="nav-item nav-link">{{$category->name}}</a>
+                        <a href="{{route('shop.productsByCategory', $category->id)}}" class="nav-item nav-link">{{$category->name}}</a>
                         @endforeach
                     </div>
                 </nav>
@@ -93,15 +93,11 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="{{route('front.index')}}" class="nav-item nav-link @if(request()->is('u/home*')) active @endif">Home</a>
-                            <a href="{{route('front.shop')}}" class="nav-item nav-link @if(request()->is('u/shop*')) active @endif">Shop</a>
-                            <a href="{{route('front.contact')}}" class="nav-item nav-link @if(request()->is('u/contact*')) active @endif">Contact</a>
+                            <a href="{{route('home')}}" class="nav-item nav-link @if(request()->is('u/home*')) active @endif">Home</a>
+                            <a href="{{route('shop.index')}}" class="nav-item nav-link @if(request()->is('u/shop*')) active @endif">Shop</a>
+                            <a href="{{route('contact')}}" class="nav-item nav-link @if(request()->is('u/contact*')) active @endif">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                            <a href="" class="btn px-0">
-                                <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
-                            </a>
                             <a href="" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>

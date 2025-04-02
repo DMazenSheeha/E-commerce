@@ -29,7 +29,7 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'name' => ['required', 'string', 'min:3', 'unique:categories,name'],
             'image' => ['required', 'image', 'mimes:jpg,jpeg,png']
         ], [
@@ -37,8 +37,11 @@ class CategoryController extends Controller
             'name.string' => 'Please write a valid category name',
             'name.min' => 'Category name must be 3 chars at least',
         ]);
-        $data['image'] = $request->file('image')->store('public');
-        Category::create($data);
+        $image = $request->file('image')->store('public');
+        $category = new Category;
+        $category->name = $request->name;
+        $category->image = $image;
+        $category->save();
         return back()->with('success', 'Category added succefully');
     }
 
@@ -58,13 +61,17 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'min:3', 'unique:categories,name,' . $id],
+            'image' => ['required', 'image', 'mimes:jpg,png,jpeg']
         ], [
             'name.required' => 'Category name is required',
             'name.string' => 'Please write a valid category name',
             'name.min' => 'Category name must be 3 chars at least',
         ]);
         $category = Category::findOrFail($id);
+        File::delete($category->image);
+        $image = $request->file('image')->store('public');
         $category->name = $request->name;
+        $category->image = $image;
         $category->save();
         if ($category->wasChanged()) {
             return back()->with('success', 'Category updated succefully');
@@ -76,7 +83,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->delete();
-        File::delete($category->image);;
+        File::delete($category->image);
         return back()->with('success', 'Category deleted successfully');
     }
 }

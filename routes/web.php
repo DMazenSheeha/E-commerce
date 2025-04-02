@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Front\FrontController;
+use App\Http\Controllers\Front\ShopController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('redirectIfAuthenticated')->controller(AuthController::class)->group(function () {
@@ -17,11 +18,14 @@ Route::middleware('redirectIfAuthenticated')->controller(AuthController::class)-
     Route::post('/register', 'register')->name('register');
 });
 
-Route::middleware('auth:web')->controller(FrontController::class)->group(function () {
+Route::middleware('auth:web')->group(function () {
     Route::prefix('/u')->group(function () {
-        Route::get('/home', 'index')->name('front.index');
-        Route::get('/shop', 'shop')->name('front.shop');
-        Route::get('/contact', 'contact')->name('front.contact');
+        Route::get('/home', [FrontController::class, 'index'])->name('home');
+        Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
+        Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+        Route::get('/shop/search', [ShopController::class, 'productsByName'])->name('shop.search');
+        Route::get('/shop/{category}', [ShopController::class, 'productsByCategory'])->name('shop.productsByCategory');
+        Route::get('/shop/{productId}/details', [ShopController::class, 'show'])->name('shop.show');
     });
     Route::fallback(function () {
         return redirect('/u/home');

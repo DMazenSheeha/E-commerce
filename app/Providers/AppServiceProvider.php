@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         if (Auth::guard('web')) {
-            $categories = \App\Models\Category::withCount('products')->get();
+            $categories = \App\Models\Category::withCount('products')->orderBy('id', 'DESC')->get();
             View::share(compact('categories'));
         }
     }

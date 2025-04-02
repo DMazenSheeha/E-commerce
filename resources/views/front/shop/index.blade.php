@@ -4,6 +4,7 @@
 <!-- Shop Start -->
 <div class="container-fluid">
     <div class="row px-xl-5">
+        @if(count($products) > 0)
         <!-- Shop Sidebar Start -->
         <div class="col-lg-3 col-md-4">
             <!-- Price Start -->
@@ -46,8 +47,6 @@
             <!-- Price End -->
         </div>
         <!-- Shop Sidebar End -->
-
-
         <!-- Shop Product Start -->
         <div class="col-lg-9 col-md-8">
             <div class="row pb-3">
@@ -75,15 +74,13 @@
                             <div class="product-action">
                                 <a class="btn btn-outline-dark btn-square" href=""><i
                                         class="fa fa-shopping-cart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href="{{route('shop.show', $product->id)}}"><i class="fa fa-search"></i></a>
                             </div>
                         </div>
                         <div class="text-center py-4">
-                            <a class="h4 text-decoration-none text-truncate" href="">{{$product->name}}</a>
+                            <a class="h4 text-decoration-none text-truncate" href="{{route('shop.show', $product->id)}}">{{$product->name}}</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h6 class="text-muted ml-2">{{$product->price}}$</h6>
+                                <h6 class="text-muted ml-2">${{$product->price}}</h6>
                             </div>
                         </div>
                     </div>
@@ -95,6 +92,11 @@
             </div>
         </div>
         <!-- Shop Product End -->
+        @else
+        <div class="w-100 d-flex align-items-center" style="height: 50dvh;">
+            <h5 class="text-center w-100">No Products</h5>
+        </div>
+        @endif
     </div>
 </div>
 <!-- Shop End -->

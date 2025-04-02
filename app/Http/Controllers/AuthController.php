@@ -27,7 +27,7 @@ class AuthController extends Controller
         ]);
         $user = User::create($validated);
         Auth::login($user);
-        return to_route('front.index')->with('success', 'Registered successfully');
+        return to_route('home')->with('success', 'Registered successfully');
     }
 
     public function login(Request $request)
@@ -40,7 +40,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (auth()->guard('web')->attempt($credentials)) {
             $request->session()->regenerate();
-            return to_route('front.index')->with('success', 'Logged in successfully');
+            return to_route('home')->with('success', 'Logged in successfully');
         } elseif (auth()->guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
             return to_route('dashboard')->with('success', 'logged in successfully');
