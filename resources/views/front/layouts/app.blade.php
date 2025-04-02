@@ -201,7 +201,7 @@
 
     <!-- Template Javascript -->
     <script src="{{asset('front')}}/js/main.js"></script>
-
+    @yield("script")
     <script>
         window.addEventListener("DOMContentLoaded", () => {
             document.getElementById('loader').style.display = 'flex';

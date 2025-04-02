@@ -11,36 +11,35 @@
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by
                     price</span></h5>
             <div class="bg-light p-4 mb-30">
-                <form>
+                <form id="sortProductsByPriceForm" action="{{route('shop.index')}}" method="get">
+                    @foreach(request()->query() as $key => $value)
+                    @if(!Str::startsWith($key,'price-option-'))
+                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                    @endif
+                    @endforeach
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" checked id="price-all">
+                        <input name="price-option-1" type="checkbox" class="custom-control-input" id="price-all" value="all" @if(request()->query('price-option-1')) checked @endif>
                         <label class="custom-control-label" for="price-all">All Price</label>
-                        <span class="badge border font-weight-normal">1000</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-1">
+                        <input name="price-option-2" value="100" type="checkbox" class="custom-control-input" @if(request()->query('price-option-2')) checked @endif id="price-1">
                         <label class="custom-control-label" for="price-1">$0 - $100</label>
-                        <span class="badge border font-weight-normal">150</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-2">
+                        <input name="price-option-3" value="200" type="checkbox" class="custom-control-input" id="price-2" @if(request()->query('price-option-3')) checked @endif>
                         <label class="custom-control-label" for="price-2">$100 - $200</label>
-                        <span class="badge border font-weight-normal">295</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-3">
+                        <input name="price-option-4" value="300" type="checkbox" class="custom-control-input" id="price-3" @if(request()->query('price-option-4')) checked @endif>
                         <label class="custom-control-label" for="price-3">$200 - $300</label>
-                        <span class="badge border font-weight-normal">246</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-4">
+                        <input name="price-option-5" value="400" type="checkbox" class="custom-control-input" id="price-4" @if(request()->query('price-option-5')) checked @endif>
                         <label class="custom-control-label" for="price-4">$300 - $400</label>
-                        <span class="badge border font-weight-normal">145</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                        <input type="checkbox" class="custom-control-input" id="price-5">
+                        <input name="price-option-6" value="500" type="checkbox" class="custom-control-input" id="price-5" @if(request()->query('price-option-6')) checked @endif>
                         <label class="custom-control-label" for="price-5">$400 - $500</label>
-                        <span class="badge border font-weight-normal">168</span>
                     </div>
                 </form>
             </div>
@@ -59,8 +58,22 @@
                                 <button type="button" class="btn btn-sm btn-light dropdown-toggle"
                                     data-toggle="dropdown">Sorting</button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">Latest</a>
-                                    <a class="dropdown-item" href="#">Best seller</a>
+                                    <form action="{{route('shop.index')}}" method="get" class="dropdown-item mb-0">
+                                        @foreach(request()->query() as $key => $value)
+                                        @if($key !== 'sorting')
+                                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                                        @endif
+                                        @endforeach
+                                        <input type="text" hidden value="latest" name="sorting">
+                                        <button>Latest</button>
+                                    </form>
+                                    <form action="{{route('shop.index')}}" method="get" class="dropdown-item mb-0">
+                                        @foreach(request()->query() as $key => $value)
+                                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                                        @endforeach
+                                        <input type="text" hidden value="best-selling" name="sorting">
+                                        <button>Best selling</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -100,4 +113,11 @@
     </div>
 </div>
 <!-- Shop End -->
+@endsection
+@section('script')
+<script>
+    document.getElementById("sortProductsByPriceForm").addEventListener('change', function() {
+        this.submit();
+    })
+</script>
 @endsection

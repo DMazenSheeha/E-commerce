@@ -22,10 +22,13 @@ Route::middleware('auth:web')->group(function () {
     Route::prefix('/u')->group(function () {
         Route::get('/home', [FrontController::class, 'index'])->name('home');
         Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
-        Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-        Route::get('/shop/search', [ShopController::class, 'productsByName'])->name('shop.search');
-        Route::get('/shop/{category}', [ShopController::class, 'productsByCategory'])->name('shop.productsByCategory');
-        Route::get('/shop/{productId}/details', [ShopController::class, 'show'])->name('shop.show');
+        Route::prefix('/shop')->controller(ShopController::class)->group(function () {
+            Route::get('/', 'index')->name('shop.index');
+            Route::get('/search', 'productsByName')->name('shop.search');
+            Route::post('/price', 'productsByPrice')->name('shop.productsByPrice'); // ! We Are Here
+            Route::get('/{category}', 'productsByCategory')->name('shop.productsByCategory');
+            Route::get('/{productId}/details', 'show')->name('shop.show');
+        });
     });
     Route::fallback(function () {
         return redirect('/u/home');

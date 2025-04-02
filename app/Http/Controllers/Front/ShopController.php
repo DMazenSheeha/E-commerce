@@ -3,21 +3,42 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderBy('id', 'DESC')->paginate(9);
+        $priceOptions = array_filter($request->query(), function ($key) {
+            return strpos($key, 'price-option-') === 0;
+        }, ARRAY_FILTER_USE_KEY);
+        $query = Product::query();
+        if ($request->sorting && $request->sorting == 'best-selling') {
+            $query->withCount('orders')->orderBy('orders_count', 'DESC');
+        } else {
+            $query->orderBy('id', 'DESC');
+        }
+        if (count($priceOptions) > 0 && !$request->query('price-option-1')) {
+            foreach ($priceOptions as $option) {
+                $query->orWhereBetween('price', [(int)$option - 100, (int)$option]);
+            }
+        }
+        $products = $query->paginate(9)->withQueryString();
+
         return view('front.shop.index', compact('products'));
+    }
+
+
+    public function show(string $id)
+    {
+        $product = Product::findOrFail($id);
+        return view('front.shop.show', compact('product'));
     }
 
     public function productsByCategory(string $categoryId)
     {
-        $products = Product::where('category_id', $categoryId)->paginate(8);
+        $products = Product::where('category_id', $categoryId)->paginate(8)->withQueryString();
         return view('front.shop.index', compact('products'));
     }
 
@@ -29,11 +50,5 @@ class ShopController extends Controller
         } else {
             return back();
         }
-    }
-
-    public function show(string $id)
-    {
-        $product = Product::findOrFail($id);
-        return view('front.shop.show', compact('product'));
     }
 }
