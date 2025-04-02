@@ -77,7 +77,15 @@
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                     <div class="navbar-nav w-100" style="max-height: 500px; overflow-y:scroll;">
                         @foreach($categories as $category)
-                        <a href="{{route('shop.productsByCategory', $category->id)}}" class="nav-item nav-link">{{$category->name}}</a>
+                        <form action="{{route('shop.index')}}" method="get">
+                            @foreach(request()->query() as $key => $value)
+                            @if($key !== 'cat')
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                            @endif
+                            @endforeach
+                            <input type="text" hidden name="cat" value="{{$category->id}}">
+                            <button style="outline: none;" class="nav-link nav-item w-100 text-left">{{$category->name}}</button>
+                        </form>
                         @endforeach
                     </div>
                 </nav>

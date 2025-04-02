@@ -4,7 +4,6 @@
 <!-- Shop Start -->
 <div class="container-fluid">
     <div class="row px-xl-5">
-        @if(count($products) > 0)
         <!-- Shop Sidebar Start -->
         <div class="col-lg-3 col-md-4">
             <!-- Price Start -->
@@ -12,9 +11,9 @@
                     price</span></h5>
             <div class="bg-light p-4 mb-30">
                 <form id="sortProductsByPriceForm" action="{{route('shop.index')}}" method="get">
-                    @foreach(request()->query() as $key => $value)
+                    @foreach(request()->query as $key => $value)
                     @if(!Str::startsWith($key,'price-option-'))
-                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                    <input type="hidden" name="{{$key}}" value="{{$value}}">
                     @endif
                     @endforeach
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -46,6 +45,7 @@
             <!-- Price End -->
         </div>
         <!-- Shop Sidebar End -->
+        @if(count($products) > 0)
         <!-- Shop Product Start -->
         <div class="col-lg-9 col-md-8">
             <div class="row pb-3">
@@ -106,9 +106,7 @@
         </div>
         <!-- Shop Product End -->
         @else
-        <div class="w-100 d-flex align-items-center" style="height: 50dvh;">
-            <h5 class="text-center w-100">No Products</h5>
-        </div>
+        <h5 class="text-center w-50 mt-5">No Products</h5>
         @endif
     </div>
 </div>

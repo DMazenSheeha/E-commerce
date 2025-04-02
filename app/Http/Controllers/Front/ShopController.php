@@ -20,10 +20,17 @@ class ShopController extends Controller
             $query->orderBy('id', 'DESC');
         }
         if (count($priceOptions) > 0 && !$request->query('price-option-1')) {
-            foreach ($priceOptions as $option) {
-                $query->orWhereBetween('price', [(int)$option - 100, (int)$option]);
-            }
+            $query->where(function ($q) use ($priceOptions) {
+                foreach ($priceOptions as $option) {
+                    $q->orWhereBetween('price', [(int)$option - 100, (int)$option]);
+                }
+            });
         }
+
+        if ($request->query("cat")) {
+            $query->where('category_id', $request->query('cat'));
+        }
+
         $products = $query->paginate(9)->withQueryString();
 
         return view('front.shop.index', compact('products'));

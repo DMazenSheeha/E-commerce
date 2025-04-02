@@ -26,7 +26,6 @@ Route::middleware('auth:web')->group(function () {
             Route::get('/', 'index')->name('shop.index');
             Route::get('/search', 'productsByName')->name('shop.search');
             Route::post('/price', 'productsByPrice')->name('shop.productsByPrice'); // ! We Are Here
-            Route::get('/{category}', 'productsByCategory')->name('shop.productsByCategory');
             Route::get('/{productId}/details', 'show')->name('shop.show');
         });
     });

@@ -105,8 +105,9 @@
     <div class="row px-xl-5 pb-3">
         @foreach($categories as $category)
         @if($category->image)
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="{{route('shop.productsByCategory', $category->id)}}">
+        <form class="col-lg-3 col-md-4 col-sm-6 pb-1" method="get" action="{{route('shop.index')}}">
+            <input type="text" hidden name="cat" value="{{$category->id}}">
+            <button class="text-decoration-none w-100 text-left" style="cursor: pointer; border: none; outline:none;">
                 <div class="cat-item d-flex align-items-center mb-4">
                     <div class="overflow-hidden" style="width: 100px; height: 100px;">
                         <img class="img-fluid" style="height: 100%; object-fit: cover;" src="{{$category->image()}}" alt="No Image">
@@ -116,8 +117,8 @@
                         <small class="text-body">{{$category->products_count}}</small>
                     </div>
                 </div>
-            </a>
-        </div>
+            </button>
+        </form>
         @endif
         @endforeach
     </div>
