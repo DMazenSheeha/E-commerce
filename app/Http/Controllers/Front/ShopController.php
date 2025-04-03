@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -39,8 +41,10 @@ class ShopController extends Controller
 
     public function show(string $id)
     {
+        $userId = Auth::guard('web')->user()->id;
         $product = Product::findOrFail($id);
-        return view('front.shop.show', compact('product'));
+        $productCart = Cart::where('product_id', $id)->where('user_id', $userId)->first();
+        return view('front.shop.show', compact('product', 'productCart'));
     }
 
     public function productsByCategory(string $categoryId)

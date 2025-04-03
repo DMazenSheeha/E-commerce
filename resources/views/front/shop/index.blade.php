@@ -1,6 +1,5 @@
 @extends("front.layouts.app")
 @section("content")
-
 <!-- Shop Start -->
 <div class="container-fluid">
     <div class="row px-xl-5">
@@ -85,8 +84,12 @@
                         <div class="product-img position-relative overflow-hidden">
                             <img class="img-fluid w-100" src="{{$product->image()}}" alt="">
                             <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i
-                                        class="fa fa-shopping-cart"></i></a>
+                                <form action="{{route('cart.update')}}" hidden class="addToCartForm-{{$product->id}}">
+                                    @csrf
+                                    <input type="text" name="product_id" value="{{$product->id}}">
+                                </form>
+                                <a class="btn btn-outline-dark btn-square submit-btn submit-number-{{$product->id}}" id="{{$product->id}}"><i class="fa fa-shopping-cart"></i></a>
+
                                 <a class="btn btn-outline-dark btn-square" href="{{route('shop.show', $product->id)}}"><i class="fa fa-search"></i></a>
                             </div>
                         </div>
@@ -114,8 +117,38 @@
 @endsection
 @section('script')
 <script>
+    const addToCartFormsSubmitButtons = Array.from(document.getElementsByClassName('submit-btn'));
+    addToCartFormsSubmitButtons.forEach((btn) => {
+        btn.addEventListener('click', function() {
+            const form = document.getElementsByClassName(`addToCartForm-${btn.id}`)[0];
+            const url = form.action;
+            const token = form.querySelector("[name='_token']").value;
+            const productId = form.querySelector("[name='product_id']").value;
+            fetch(url, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json, text-plain, */*",
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRF-TOKEN": token
+                    },
+                    body: JSON.stringify({
+                        'product_id': productId,
+                        'action': 'inc'
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data['success']) {
+                        location.reload();
+                    } else {
+                        toastify().error('Something wrong');
+                    }
+                })
+        });
+    });
     document.getElementById("sortProductsByPriceForm").addEventListener('change', function() {
         this.submit();
-    })
+    });
 </script>
 @endsection

@@ -1,3 +1,4 @@
+@include("inc.message")
 @toastifyCss
 <!DOCTYPE html>
 <html lang="en">

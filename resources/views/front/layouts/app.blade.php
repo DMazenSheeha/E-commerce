@@ -1,3 +1,5 @@
+@include("inc.message")
+
 @toastifyCss
 <!DOCTYPE html>
 <html lang="en">
@@ -104,11 +106,12 @@
                             <a href="{{route('home')}}" class="nav-item nav-link @if(request()->is('u/home*')) active @endif">Home</a>
                             <a href="{{route('shop.index')}}" class="nav-item nav-link @if(request()->is('u/shop*')) active @endif">Shop</a>
                             <a href="{{route('contact')}}" class="nav-item nav-link @if(request()->is('u/contact*')) active @endif">Contact</a>
+                            <a href="{{route('cart.index')}}" class="nav-item nav-link @if(request()->is('u/cart*')) active @endif" id="cart-navlink">Cart</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                            <a href="" class="btn px-0 ml-3">
+                            <a href="{{route('cart.index')}}" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;" id="cartItemsCount">{{auth()->guard('web')->user()->cartItemsCount()}}</span>
                             </a>
                         </div>
                     </div>
@@ -209,7 +212,6 @@
 
     <!-- Template Javascript -->
     <script src="{{asset('front')}}/js/main.js"></script>
-    @yield("script")
     <script>
         window.addEventListener("DOMContentLoaded", () => {
             document.getElementById('loader').style.display = 'flex';
@@ -218,6 +220,7 @@
             document.getElementById("loader").style.display = 'none';
         })
     </script>
+    @yield("script")
 </body>
 
 </html>

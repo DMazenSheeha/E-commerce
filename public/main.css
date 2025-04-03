@@ -125,3 +125,21 @@ a {
 .product {
     font-size: 22px;
 }
+
+.cart-item-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.img-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+@media (min-width: 992px) {
+    #cart-navlink {
+        display: none;
+    }
+}

@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+    public function cartItemsCount()
+    {
+        return $this->hasMany(Cart::class)->count();
+    }
 }

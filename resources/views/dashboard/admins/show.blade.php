@@ -1,5 +1,4 @@
 @extends("dashboard.layouts.app")
-@include("inc.message")
 @section("content")
 <div class="show-page">
     <div>

@@ -26,7 +26,7 @@
                                 <i class="fa fa-minus"></i>
                             </button>
                         </div>
-                        <input type="text" class="form-control bg-secondary border-0 text-center" style="height: 100%;" value="1">
+                        <input type="text" disabled class="form-control bg-secondary border-0 text-center" style="height: 100%;" value="{{$productCart ? $productCart->quantity : 1}}" id="item-count">
                         <div class="input-group-btn">
                             <button class="btn btn-primary btn-plus">
                                 <i class="fa fa-plus"></i>
@@ -34,8 +34,11 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
-                    Cart</button>
+                <form action="{{route('cart.update')}}" class="mb-0" id="edit-cart">
+                    @csrf
+                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
+                        Cart</button>
+                </form>
             </div>
         </div>
     </div>
@@ -86,4 +89,37 @@
 </div>
 <!-- Products End -->
 
+@endsection
+@section("script")
+<script>
+    const editCartForm = document.getElementById("edit-cart");
+    const url = editCartForm.action;
+    const token = document.querySelector("[name='_token']").value;
+    editCartForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const itemCount = document.getElementById('item-count').value;
+        fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json, text-plain, */*",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRF-TOKEN": token
+                },
+                body: JSON.stringify({
+                    'product_id': "{{$product->id}}",
+                    'action': 'payload',
+                    'payload': +itemCount
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data['success']) {
+                    location.reload();
+                } else {
+                    toastify().error('Something wrong');
+                }
+            })
+    })
+</script>
 @endsection

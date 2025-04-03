@@ -135,12 +135,16 @@
                 <div class="product-img position-relative overflow-hidden">
                     <img class="img-fluid w-100" src="{{$product->image()}}" alt="">
                     <div class="product-action">
-                        <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                        <form action="{{route('cart.update')}}" hidden class="addToCartForm-{{$product->id}}">
+                            @csrf
+                            <input type="text" name="product_id" value="{{$product->id}}">
+                        </form>
+                        <a class="btn btn-outline-dark btn-square submit-btn submit-number-{{$product->id}}" id="{{$product->id}}"><i class="fa fa-shopping-cart"></i></a>
                         <a class="btn btn-outline-dark btn-square" href="{{route('shop.show',$product->id)}}"><i class="fa fa-search"></i></a>
                     </div>
                 </div>
                 <div class="text-center py-4">
-                    <a class="h6 text-decoration-none text-truncate" href="">{{$product->name}}</a>
+                    <a class="h6 text-decoration-none text-truncate" href="{{route('shop.show', $product->id)}}">{{$product->name}}</a>
                     <div class="d-flex align-items-center justify-content-center mt-2">
                         <h6 class="text-muted ml-2">{{$product->price}}$</h6>
                     </div>
@@ -188,4 +192,38 @@
 </div>
 <!-- Vendor End -->
 
+@endsection
+@section("script")
+<script>
+    const addToCartFormsSubmitButtons = Array.from(document.getElementsByClassName('submit-btn'));
+    addToCartFormsSubmitButtons.forEach((btn) => {
+        btn.addEventListener('click', function() {
+            const form = document.getElementsByClassName(`addToCartForm-${btn.id}`)[0];
+            const url = form.action;
+            const token = form.querySelector("[name='_token']").value;
+            const productId = form.querySelector("[name='product_id']").value;
+            fetch(url, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json, text-plain, */*",
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRF-TOKEN": token
+                    },
+                    body: JSON.stringify({
+                        'product_id': productId,
+                        'action': 'inc'
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data['success']) {
+                        location.reload();
+                    } else {
+                        toastify().error('Something wrong');
+                    }
+                })
+        });
+    });
+</script>
 @endsection

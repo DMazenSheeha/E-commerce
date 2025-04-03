@@ -1,5 +1,4 @@
 @extends("dashboard.layouts.app")
-@include("inc.message")
 @section("content")
 <div class="card-body">
     <form class="form" action="{{route('products.store')}}" method="post" enctype="multipart/form-data">

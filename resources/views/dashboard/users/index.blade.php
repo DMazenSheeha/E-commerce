@@ -1,5 +1,4 @@
 @extends("dashboard.layouts.app")
-@include("inc.message")
 @section("header-right-section")
 <a href="{{route('users.create')}}" class="btn bg-navy">Add New User</a>
 @endsection

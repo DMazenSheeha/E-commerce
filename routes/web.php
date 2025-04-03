@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\DasboardController;
 use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Front\ShopController;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +27,12 @@ Route::middleware('auth:web')->group(function () {
             Route::get('/', 'index')->name('shop.index');
             Route::get('/search', 'productsByName')->name('shop.search');
             Route::post('/price', 'productsByPrice')->name('shop.productsByPrice'); // ! We Are Here
-            Route::get('/{productId}/details', 'show')->name('shop.show');
+            Route::get('/{productId}', 'show')->name('shop.show');
+        });
+        Route::prefix('/cart')->controller(CartController::class)->group(function () {
+            Route::get('/', 'index')->name('cart.index');
+            Route::put('/', 'update')->name('cart.update');
+            Route::delete('/{productId}', 'destroy')->name('cart.destroy');
         });
     });
     Route::fallback(function () {

@@ -1,5 +1,4 @@
 @extends("dashboard.layouts.app")
-@include("inc.message")
 @section("content")
 <div class="card-body">
     <input type="text" value="{{route('products.search', $categories[0]->id)}}" hidden id="url">
