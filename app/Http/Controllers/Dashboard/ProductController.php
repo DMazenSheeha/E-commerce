@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('id', 'DESC')->paginate(15);
+        $products = Product::orderBy('id', 'DESC')->with('category')->paginate(15);
         return view("dashboard.products.index", compact('products'));
     }
 
