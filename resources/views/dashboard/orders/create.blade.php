@@ -4,30 +4,40 @@
     <input type="text" value="{{route('products.search', $categories[0]->id)}}" hidden id="url">
     <form action="{{route('orders.store')}}" method="post">
         @csrf
-        <div class="form-group">
-            <label>Order Name</label>
-            <input type="text" class="form-control" name="name" value="{{old('name')}}">
+        <div class="form-group mb-3">
+            <label>Phone Number</label>
+            <input type="text" name="user_mobile_number" class="form-control" value="{{old('user_mobile_number')}}">
         </div>
-        <div class="form-group">
-            <label>Category</label>
-            <select class="form-control" name="category_id" id="category_id">
-                <option value="0">All</option>
-                @foreach($categories as $cat)
-                <option @selected(old("category")==$cat->id) value="{{$cat->id}}">{{$cat->name}}</option>
-                @endforeach
-            </select>
+        <div class="form-group mb-3">
+            <label>City</label>
+            <input type="text" name="city" class="form-control" value="{{old('city')}}">
         </div>
-        <div class="form-group">
-            <label>Products</label>
-            <select name="products[]" multiple id="products" class="form-control" style="height: 100px !important;">
-                @if($products->isNotEmpty())
-                @foreach($products as $product)
-                <option value="{{$product->id}}" @selected(!is_null(old('products')) && in_array($product->id, old('products')))>{{$product->name}}</option>
-                @endforeach
-                @else
-                <option disabled>No products found for this category</option>
-                @endif
-            </select>
+        <div class="form-group mb-3">
+            <label>Address</label>
+            <input type="text" name="address" class="form-control" value="{{old('address')}}">
+        </div>
+        <div class="form-group mb-3 col-12 row">
+            <div class="col-9">
+                <label>Products</label>
+                <select name="products[]" multiple id="products" class="form-control" style="height: 100px !important;">
+                    @if($products->isNotEmpty())
+                    @foreach($products as $product)
+                    <option value="{{$product->id}}" @selected(!is_null(old('products')) && in_array($product->id, old('products')))>{{$product->name}}</option>
+                    @endforeach
+                    @else
+                    <option disabled>No products found for this category</option>
+                    @endif
+                </select>
+            </div>
+            <div class="col-3">
+                <label>Category</label>
+                <select class="form-control" name="category_id" id="category_id">
+                    <option value="0">All</option>
+                    @foreach($categories as $cat)
+                    <option @selected(old("category")==$cat->id) value="{{$cat->id}}">{{$cat->name}}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
         <div class="form-group">
             <label>User</label>

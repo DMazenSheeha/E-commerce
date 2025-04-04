@@ -13,13 +13,12 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('products')->orderBy('id', 'DESC')->paginate(15);
+        $orders = Order::with('products')->where('status', 'pending')->orderBy('id', 'DESC')->paginate(15);
         return view("dashboard.orders.index", compact('orders'));
     }
 
     public function create()
     {
-
         $products = Product::select('id', 'name')->get();
         $categories = Category::select('id', 'name')->get();
         $users = User::select("id", 'name')->get();
@@ -29,22 +28,26 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'min:3', 'max:50'],
             'products' => 'required',
             'products.*' => 'exists:products,id',
-            'user_id' => 'required|exists:users,id'
+            'user_id' => 'required|exists:users,id',
+            'user_mobile_number' => 'required|regex:/^01[0-9]{9}$/',
+            'address' => 'required|min:3|max:100',
+            'city' => 'required|min:5|max:100'
         ], [
-            'name.required' => 'Order name is required',
-            'name.min' => 'Order name must be 3 chars at least',
-            'name.max' => 'Order name must be 50 chars at most',
             'products.required' => "Please choose products",
             'products.*.exists' => 'One or more selected products do not exist',
             'user_id.required' => 'User is required',
-            'user_id.exists' => "User doesn't exist"
+            'user_id.exists' => "User doesn't exist",
+            'user_mobile_number.required' => 'Mobile number is required',
+            'user_mobile_number.regex' => 'Mobile number is invalid'
         ]);
         $order = new Order;
-        $order->name = $request->name;
         $order->user_id = $request->user_id;
+        $order->user_mobile_number = $request->user_mobile_number;
+        $order->city = $request->city;
+        $order->address = $request->address;
+        $order->status = "pending";
         $order->save();
         $order->products()->sync($request->products);
         return back()->with('success', 'Order Added successfully');
@@ -69,25 +72,29 @@ class OrderController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => ['required', 'min:3', 'max:50'],
             'products' => 'required|array',
             'products.*' => 'exists:products,id',
-            'user_id' => 'required|exists:users,id'
+            'user_id' => 'required|exists:users,id',
+            'user_mobile_number' => 'required|regex:/^01[0-9]{9}$/',
+            'address' => 'required|min:3|max:100',
+            'city' => 'required|min:5|max:100'
         ], [
-            'name.required' => 'Order name is required',
-            'name.min' => 'Order name must be 3 chars at least',
-            'name.max' => 'Order name must be 50 chars at most',
             'products.required' => "Please choose products",
             'products.array' =>  "Products must be an array",
             'products.*.exists' => 'One or more selected products do not exist',
             'user_id.required' => 'User is required',
-            'user_id.exists' => "User doesn't exist"
+            'user_id.exists' => "User doesn't exist",
+            'user_mobile_number.required' => 'Mobile number is required',
+            'user_mobile_number.regex' => 'Mobile number is invalid'
         ]);
         $order = Order::findOrFail($id);
         $oldProducts = $order->products->pluck('id')->sort()->values()->toArray();
         $newProducts = collect($request->products)->sort()->values()->toArray();
-        $order->name = $request->name;
         $order->user_id = $request->user_id;
+        $order->user_mobile_number = $request->user_mobile_number;
+        $order->city = $request->city;
+        $order->address = $request->address;
+        $order->status = "pending";
         $order->save();
         $order->products()->sync($request->products);
         if ($order->wasChanged() || $oldProducts != $newProducts) {
@@ -111,5 +118,13 @@ class OrderController extends Controller
             ->orderBy('month', 'ASC')
             ->paginate(2);
         return response()->json($orders);
+    }
+
+    public function changeStatusToDone(string $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = 'done';
+        $order->save();
+        return back()->with('success', 'Order have been done successfully');
     }
 }

@@ -37,7 +37,7 @@
     <div class="container-fluid">
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
-                <a href="" class="text-decoration-none">
+                <a href="{{route('home')}}" class="text-decoration-none">
                     <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
                     <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
                 </a>
@@ -57,10 +57,13 @@
             <div class="col-lg-4 col-6 text-right">
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">{{auth()->guard('web')->user()->name}}</button>
-                    <form class="dropdown-menu dropdown-menu-right" action="{{route('logout')}}" method="post">
-                        @csrf
-                        <button class="dropdown-item">Logout</button>
-                    </form>
+                    <div class="dropdown-menu dropdown-menu-right mb-0">
+                        <a href="{{route('order.index')}}" class="btn dropdown-item">Orders</a>
+                        <form action="{{route('logout')}}" method="post" class="mb-0">
+                            @csrf
+                            <button class="dropdown-item">Logout</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,8 +108,12 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="{{route('home')}}" class="nav-item nav-link @if(request()->is('u/home*')) active @endif">Home</a>
                             <a href="{{route('shop.index')}}" class="nav-item nav-link @if(request()->is('u/shop*')) active @endif">Shop</a>
-                            <a href="{{route('contact')}}" class="nav-item nav-link @if(request()->is('u/contact*')) active @endif">Contact</a>
-                            <a href="{{route('cart.index')}}" class="nav-item nav-link @if(request()->is('u/cart*')) active @endif" id="cart-navlink">Cart</a>
+                            <a href="{{route('cart.index')}}" class="nav-item nav-link in-md-list @if(request()->is('u/cart*')) active @endif">Cart</a>
+                            <a href="{{route('order.index')}}" class="nav-item nav-link in-md-list @if(request()->is('u/orders*')) active @endif">Orders</a>
+                            <form class="mb-0" action="{{route('logout')}}" method="post">
+                                @csrf
+                                <button href="{{route('cart.index')}}" class="nav-item nav-link in-md-list">Logout</button>
+                            </form>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="{{route('cart.index')}}" class="btn px-0 ml-3">

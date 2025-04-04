@@ -5,26 +5,36 @@
     <form action="{{ route('orders.update', $order->id) }}" method="post">
         @csrf
         @method("PUT")
-        <div class="form-group">
-            <label>Order Name</label>
-            <input type="text" class="form-control" name="name" value="{{ old('name', $order->name) }}">
+        <div class="form-group mb-3">
+            <label>Phone Number</label>
+            <input type="text" name="user_mobile_number" class="form-control" value="{{is_null(old('user_mobile_number')) ? $order->user_mobile_number : old('user_mobile_number')}}">
         </div>
-        <div class="form-group">
-            <label>Category</label>
-            <select class="form-control" name="category_id" id="category_id">
-                <option value="0">All</option>
-                @foreach($categories as $cat)
-                <option value="{{ $cat->id }}" @selected(old('category_id', $order->category_id) == $cat->id)>{{ $cat->name }}</option>
-                @endforeach
-            </select>
+        <div class="form-group mb-3">
+            <label>City</label>
+            <input type="text" name="city" class="form-control" value="{{is_null(old('city')) ? $order->city : old('city')}}">
         </div>
-        <div class="form-group">
-            <label>Products</label>
-            <select name="products[]" multiple id="products" class="form-control" style="height: 100px !important;">
-                @foreach($products as $product)
-                <option value="{{ $product->id }}" @selected(in_array($product->id, old('products', $order->products->pluck('id')->toArray())))>{{ $product->name }}</option>
-                @endforeach
-            </select>
+        <div class="form-group mb-3">
+            <label>Address</label>
+            <input type="text" name="address" class="form-control" value="{{is_null(old('address')) ? $order->address : old('address')}}">
+        </div>
+        <div class="form-group row">
+            <div class="col-9">
+                <label>Products</label>
+                <select name="products[]" multiple id="products" class="form-control" style="height: 100px !important;">
+                    @foreach($products as $product)
+                    <option value="{{ $product->id }}" @selected(in_array($product->id, old('products', $order->products->pluck('id')->toArray())))>{{ $product->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-3">
+                <label>Category</label>
+                <select class="form-control" name="category_id" id="category_id">
+                    <option value="0">All</option>
+                    @foreach($categories as $cat)
+                    <option value="{{ $cat->id }}" @selected(old('category_id', $order->category_id) == $cat->id)>{{ $cat->name }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
         <div class="form-group">
             <label>User</label>

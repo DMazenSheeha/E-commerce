@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\DasboardController;
 use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Front\OrderController as FrontOrderController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Front\ShopController;
@@ -21,18 +22,22 @@ Route::middleware('redirectIfAuthenticated')->controller(AuthController::class)-
 
 Route::middleware('auth:web')->group(function () {
     Route::prefix('/u')->group(function () {
-        Route::get('/home', [FrontController::class, 'index'])->name('home');
-        Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
+        Route::get('/home',  [FrontController::class, 'index'])->name('home');
+        Route::controller(FrontOrderController::class)->group(function () {
+            Route::get('/orders', 'index')->name('order.index');
+            Route::get('/checkout',  'create')->name('order.create');
+            Route::post('/orders', 'store')->name('order.store');
+        });
         Route::prefix('/shop')->controller(ShopController::class)->group(function () {
             Route::get('/', 'index')->name('shop.index');
             Route::get('/search', 'productsByName')->name('shop.search');
-            Route::post('/price', 'productsByPrice')->name('shop.productsByPrice'); // ! We Are Here
-            Route::get('/{productId}', 'show')->name('shop.show');
+            Route::post('/price', 'productsByPrice')->name('shop.productsByPrice');
+            Route::get('/{product}', 'show')->name('shop.show');
         });
         Route::prefix('/cart')->controller(CartController::class)->group(function () {
             Route::get('/', 'index')->name('cart.index');
             Route::put('/', 'update')->name('cart.update');
-            Route::delete('/{productId}', 'destroy')->name('cart.destroy');
+            Route::delete('/{product}', 'destroy')->name('cart.destroy');
         });
     });
     Route::fallback(function () {
@@ -48,8 +53,9 @@ Route::middleware('auth:admin')->group(function () {
         Route::get("/products/search/{category}", [ProductController::class, 'searchByCategories'])->name("products.search");
         Route::get("/categories/{category}/products", [CategoryController::class, 'products'])->name('categories.products');
         Route::resource("/categories", CategoryController::class);
-        Route::get('admin/orders/info', [OrderController::class, 'ordersInfo'])->name('orders.info');
+        Route::get('/orders/info', [OrderController::class, 'ordersInfo'])->name('orders.info');
         Route::resource("/orders", OrderController::class);
+        Route::put('/orders/{order}/changeStatus', [OrderController::class, 'changeStatusToDone'])->name('orders.changeStatusToDone');
         Route::get("/users/{user}/orders", [UserController::class, 'orders'])->name('users.orders');
         Route::resource("/users", UserController::class);
         Route::resource("/admins", AdminController::class);

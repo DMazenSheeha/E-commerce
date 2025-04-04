@@ -2,10 +2,10 @@
 @section("content")
 <div class="show-page">
     <div>
-        Name : <span style="text-decoration: underline;">{{$admin->name}}</span>
+        Name : {{$admin->name}}
     </div>
     <div>
-        Email : <span style="text-decoration: underline;">{{$admin->email}}</span>
+        Email : {{$admin->email}}
     </div>
 </div>
 @endsection

@@ -12,7 +12,11 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade');
+            $table->string('user_mobile_number');
+            $table->string('city');
+            $table->string('address');
+            $table->enum('status', ['pending', 'done']);
             $table->timestamps();
         });
     }

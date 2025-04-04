@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{$urlArray[count($urlArray) - 1] == "" ? "Dashboard" : ucwords($urlArray[count($urlArray) - 1])}}</title>
+    <title>Dashboard</title>
     <meta
         name="keywords"
         content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard" />
@@ -59,7 +59,7 @@
                     <li class="nav-item">
                         <form action="{{route('products.searchByName')}}" class="d-flex align-items-center justify-center h-100">
                             <input type=" text" class="form-control" required placeholder="Search products..." name="q" style="width: 200px;">
-                            <button class="btn bg-purple m-3 my-0">Search</button>
+                            <button class="btn bg-indigo m-3 my-0">Search</button>
                         </form>
                     </li>
                     <li class="nav-item dropdown user-menu d-flex align-items-center">

@@ -63,7 +63,7 @@
                         <h5>Total</h5>
                         <h5 id="total-price">${{$totalPrice}}</h5>
                     </div>
-                    <a class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</a>
+                    <a class="btn btn-block btn-primary font-weight-bold my-3 py-3" href="{{route('order.create')}}">Proceed To Checkout</a>
                 </div>
             </div>
         </div>

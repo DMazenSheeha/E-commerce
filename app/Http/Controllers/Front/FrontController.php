@@ -12,9 +12,4 @@ class FrontController extends Controller
         $recentProducts = Product::orderBy('id', 'DESC')->paginate(8);
         return view('front.index', compact('recentProducts'));
     }
-
-    public function contact()
-    {
-        return view('front.contact');
-    }
 }

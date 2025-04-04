@@ -55,11 +55,6 @@ button {
     background-color: #001f3f !important;
 }
 
-.bg-purple {
-    color: #fff;
-    background-color: #6f42c1 !important;
-}
-
 a {
     text-decoration: none;
 }
@@ -101,12 +96,7 @@ a {
 }
 
 .show-page {
-    font-size: 18px;
-    background-color: #6610f2 !important;
-    color: #fff;
-    padding: 30px;
-    border-radius: 20px 20px 0 0;
-    height: 74dvh;
+    font-size: 16px;
 }
 
 .product {
@@ -139,7 +129,7 @@ a {
 }
 
 @media (min-width: 992px) {
-    #cart-navlink {
+    .in-md-list {
         display: none;
     }
 }
